@@ -7,21 +7,24 @@ contract ExpenseTracker{
         TransactionType t_type;
         string t_disc;
         uint256 t_amount;
+        uint256 t_date;
     }
     mapping(address => Transaction[]) private transactions;
 
-    function addExpense(uint amount, string memory desc) public {
+    function addExpense(uint amount, string memory desc, uint date) public {
         transactions[msg.sender].push(Transaction(
             TransactionType.EXPENSE,
             desc,
-            amount
+            amount,
+            date
         ));
     }
-    function addIncome(uint amount, string memory desc) public {
+    function addIncome(uint amount, string memory desc, uint date) public {
         transactions[msg.sender].push(Transaction(
             TransactionType.INCOME,
             desc,
-            amount
+            amount,
+            date
         ));
     }
     function getUserTransactions() public view returns (Transaction[] memory){
@@ -30,11 +33,4 @@ contract ExpenseTracker{
     function getUserTransactionsLen() public view returns (uint){
         return transactions[msg.sender].length;
     }
-
-    // get total user income 
-    // get total user expense
-    // reset income and expense after end of the month
-    // monthly total transactions
-    // monthly get total user income 
-    // monthly get total user expense
 }
