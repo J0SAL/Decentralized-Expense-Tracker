@@ -3,16 +3,25 @@ import { ethers, run, network } from "hardhat"
 async function main() {
     const ExpenseTrackerFactory = await ethers.getContractFactory("ExpenseTracker")
     console.log("Deploying contract...")
-    const expenseStorage = await ExpenseTrackerFactory.deploy()
-    await expenseStorage.deployed()
-    console.log("Contract deployed to:", expenseStorage.address)
+    const expenseTracker = await ExpenseTrackerFactory.deploy()
+    await expenseTracker.deployed()
+    console.log("Contract deployed to:", expenseTracker.address)
 
 
     // verifying the contract on test net
     if (network.config.chainId === 5 && process.env.ETHERSCAN_API_KEY) {
-        await expenseStorage.deployTransaction.wait(6)
-        await verify(expenseStorage.address, [])
+        await expenseTracker.deployTransaction.wait(6)
+        await verify(expenseTracker.address, [])
     }
+
+    // adding expense
+    expenseTracker.addExpense(10, "party", 13112022);
+    // adding salary
+    expenseTracker.addIncome(10, "salary", 14112022);
+    // getting all transaction length
+    console.log(Number(await expenseTracker.getUserTransactionsLen()));
+    // getting all transactions
+    console.log(await expenseTracker.getUserTransactions());
 }
 
 const verify = async (contractAddress: string, args: any[]) => {
