@@ -1,7 +1,8 @@
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "dotenv/config";
-
+import { task, HardhatUserConfig } from "hardhat/config"
+import "./tasks/accounts"
 
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
