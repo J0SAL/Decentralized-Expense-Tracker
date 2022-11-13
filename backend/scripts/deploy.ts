@@ -14,12 +14,21 @@ async function main() {
         await verify(expenseTracker.address, [])
     }
 
+    console.log(`Current transactions: ${await expenseTracker.getUserTransactionsLen()}`);
+
     // adding expense
-    expenseTracker.addExpense(10, "party", 13112022);
+    const transactionResponse1 = await expenseTracker.addExpense(10, "party", 13112022);
+    // waiting for 1 block confirmation
+    await transactionResponse1.wait(1);
+    
     // adding salary
-    expenseTracker.addIncome(10, "salary", 14112022);
+    const transactionResponse2 = await expenseTracker.addIncome(10, "salary", 14112022);
+    // waiting for 1 block confirmation
+    await transactionResponse2.wait(1);
+
     // getting all transaction length
-    console.log(Number(await expenseTracker.getUserTransactionsLen()));
+    console.log(`Updated transactions: ${await expenseTracker.getUserTransactionsLen()}`);
+    
     // getting all transactions
     console.log(await expenseTracker.getUserTransactions());
 }
