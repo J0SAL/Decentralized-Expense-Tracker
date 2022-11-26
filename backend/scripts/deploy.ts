@@ -14,7 +14,7 @@ async function main() {
         await verify(expenseTracker.address, [])
     }
 
-    console.log(`Current transactions: ${await expenseTracker.getUserTransactionsLen()}`);
+    console.log(`Current transactions: ${Number(await expenseTracker.getUserTransactionsLen())}`);
 
     // adding expense
     const transactionResponse1 = await expenseTracker.addExpense(10, "party", 13112022);
