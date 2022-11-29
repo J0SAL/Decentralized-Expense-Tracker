@@ -8,9 +8,11 @@ export interface networkConfigInfo {
 export const networkConfig: networkConfigInfo = {
     default: {
         name: "hardhat",
+        blockConfirmations: 0,
     },
     31337: {
-        name: "hardhat",
+        name: "localhost",
+        blockConfirmations: 0,
     },
     1: {
         name: "mainnet",

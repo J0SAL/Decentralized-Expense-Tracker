@@ -14,7 +14,7 @@ module.exports = {
   defaultNetwork: "hardhat",
     networks: {
       hardhat: {
-        chainId: 31337,
+        chainId: 31337
       },
       localhost: {
           chainId: 31337,
@@ -42,12 +42,6 @@ module.exports = {
     namedAccounts: {
       deployer: {
           default: 0, 
-          1: 0, // mainnet : first account
-          5: 0, // goerli : first account
-          31337: 1, // hardhat : first account
-      },
-      player: {
-          default: 1,
-      },
+      }
   },
 };
