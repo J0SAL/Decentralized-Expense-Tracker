@@ -4,6 +4,7 @@ import "@nomiclabs/hardhat-etherscan";
 import "dotenv/config";
 import "./tasks/accounts";
 import "@typechain/hardhat";
+import "hardhat-deploy";
 
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
@@ -37,4 +38,16 @@ module.exports = {
     etherscan: {
       apiKey: ETHERSCAN_API_KEY,
     },
+
+    namedAccounts: {
+      deployer: {
+          default: 0, 
+          1: 0, // mainnet : first account
+          5: 0, // goerli : first account
+          31337: 1, // hardhat : first account
+      },
+      player: {
+          default: 1,
+      },
+  },
 };
