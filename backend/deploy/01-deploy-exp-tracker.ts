@@ -1,5 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { DeployFunction } from "hardhat-deploy/types"
+import verify from "../utils/verify"
 import { networkConfig, developmentChains } from "../helper-hardhat-config"
 
 const deployFundMe: DeployFunction = async function (
@@ -17,8 +18,12 @@ const deployFundMe: DeployFunction = async function (
         from: deployer,
         args: [], // if constructor has arguments
         log: true,
+        waitConfirmations: networkConfig[chainId].blockConfirmations || 0
     })
     console.log(`ExpenseTracker deployed at ${expenseTracker.address}`);
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+      await verify(expenseTracker.address, [])
+    }
   }
   export default deployFundMe
   
