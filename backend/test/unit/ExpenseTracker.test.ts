@@ -1,15 +1,18 @@
 import { expect } from "chai"
-import { ethers } from "hardhat"
-import {ExpenseTracker, ExpenseTracker__factory} from "../typechain-types";
+import { network, deployments, ethers  } from "hardhat"
+import {ExpenseTracker} from "../../typechain-types";
+const { developmentChains } = require("../../helper-hardhat-config")
 
-describe("ExpenseTracker", function() {
+// only for development chains
+!developmentChains.includes(network.name)
+    ? describe.skip
+    : describe("ExpenseTracker - unit tests", function() {
     let expenseTracker: ExpenseTracker;
-    let ExpenseTrackerFactory: ExpenseTracker__factory;
     beforeEach(async () => {
-        ExpenseTrackerFactory = (await ethers.getContractFactory(
-          "ExpenseTracker"
-        )) as ExpenseTracker__factory
-        expenseTracker = await ExpenseTrackerFactory.deploy()
+        // let deployer = (await ethers.getSigners())[0]
+        const {deployer} = await ethers.getNamedSigners()
+        await deployments.fixture(["all"]);
+        expenseTracker = await ethers.getContract("ExpenseTracker", deployer)
       })
 
     it("Adding Expense should increment transaction length", async function() {
