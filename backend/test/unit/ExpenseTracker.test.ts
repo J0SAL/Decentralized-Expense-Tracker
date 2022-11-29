@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import { network, deployments, ethers  } from "hardhat"
+import { network, deployments, ethers, getNamedAccounts } from "hardhat"
 import {ExpenseTracker} from "../../typechain-types";
 const { developmentChains } = require("../../helper-hardhat-config")
 
@@ -10,9 +10,12 @@ const { developmentChains } = require("../../helper-hardhat-config")
     let expenseTracker: ExpenseTracker;
     beforeEach(async () => {
         // let deployer = (await ethers.getSigners())[0]
-        const {deployer} = await ethers.getNamedSigners()
+        // const {deployer} = await ethers.getNamedSigners()
+        const { deployer } = await getNamedAccounts()
+        console.log("deployer ",deployer)
         await deployments.fixture(["all"]);
         expenseTracker = await ethers.getContract("ExpenseTracker", deployer)
+        await expenseTracker.deployed();
       })
 
     it("Adding Expense should increment transaction length", async function() {
