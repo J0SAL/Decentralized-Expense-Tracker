@@ -3,7 +3,7 @@ import { DeployFunction } from "hardhat-deploy/types"
 import verify from "../utils/verify"
 import { networkConfig, developmentChains } from "../helper-hardhat-config"
 
-const deployFundMe: DeployFunction = async function (
+const deployExpenseTracker: DeployFunction = async function (
     hre: HardhatRuntimeEnvironment
   ){
     // @ts-ignore
@@ -25,5 +25,5 @@ const deployFundMe: DeployFunction = async function (
       await verify(expenseTracker.address, [])
     }
   }
-  export default deployFundMe
-  
+  export default deployExpenseTracker
+  deployExpenseTracker.tags = ["all", "expenseTracker"]

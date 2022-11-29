@@ -34,3 +34,4 @@ async function updateContractAddresses() {
 }
 
 export default main
+main.tags = ["storage"]

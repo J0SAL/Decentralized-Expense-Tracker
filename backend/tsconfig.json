@@ -7,6 +7,6 @@
         "outDir": "dist",
         "composite": true
     },
-    "include": ["./deploy/*", "./scripts", "./test", "./tasks", "./typechain-types/*", "./utils/*"],
+    "include": ["./deploy/*", "./scripts/*", "./test", "./tasks", "./typechain-types/*", "./utils/*"],
     "files": ["./hardhat.config.ts", "./helper-hardhat-config.ts"]
 }
