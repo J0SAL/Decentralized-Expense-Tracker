@@ -7,7 +7,9 @@ import Transactions from "../components/transactions/Transactions";
 export default function HomePage() {
   return (
     <div>
-      <h1>Welcome to Expense Tracker</h1>
+      <h1 className="d-flex justify-content-center">
+        <i>Expense Tracker</i>
+      </h1>
       <Main />
       <Transactions />
       <PerformanceGraph />
