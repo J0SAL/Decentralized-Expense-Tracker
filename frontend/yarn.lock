@@ -407,7 +407,7 @@
     "ansi-styles" "^4.1.0"
     "supports-color" "^7.1.0"
 
-"chart.js@^4.0.0":
+"chart.js@^4.0.0", "chart.js@^4.0.1":
   "integrity" "sha512-5/8/9eBivwBZK81mKvmIwTb2Pmw4D/5h1RK9fBWZLLZ8mCJ+kfYNmV9rMrGoa5Hgy2/wVDBMLSUDudul2/9ihA=="
   "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-4.0.1.tgz"
   "version" "4.0.1"
