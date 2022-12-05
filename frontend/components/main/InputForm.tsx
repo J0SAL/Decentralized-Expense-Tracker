@@ -54,7 +54,7 @@ function InputForm() {
       setLoading(false);
     }
     setFormData(initialState);
-    e!.target.reset();
+    (e!.target as HTMLFormElement).reset();
   };
 
   const canSubmit: boolean =
@@ -80,7 +80,7 @@ function InputForm() {
             <Col md={6} xs={6}>
               <Form.Label htmlFor="transaction-type">Type</Form.Label>
               <Form.Select
-                size="md"
+                size="sm"
                 name="type"
                 onChange={handleChange}
                 disabled={loading}
@@ -95,7 +95,7 @@ function InputForm() {
             <Col>
               <Form.Label htmlFor="transaction-type">Category</Form.Label>
               <Form.Select
-                size="md"
+                size="sm"
                 name="category"
                 onChange={handleChange}
                 disabled={loading}
