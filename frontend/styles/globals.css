@@ -15,6 +15,10 @@ a {
   box-sizing: border-box;
 }
 
+.tp{
+  color: rgba(232, 249, 252, 0.76);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
