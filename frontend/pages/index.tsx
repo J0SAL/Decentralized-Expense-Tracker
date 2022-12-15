@@ -8,12 +8,7 @@ import Transactions from "../components/transactions/Transactions";
 export default function HomePage() {
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
-      <Container
-        style={{
-          backgroundColor: "white",
-          padding: "70px 100px",
-        }}
-      >
+      <Container className="mt-5 py-3 bg-white">
         <Overview />
         <Transactions />
         <PerformanceGraph />

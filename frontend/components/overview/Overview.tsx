@@ -5,7 +5,7 @@ import { PieChart } from "./PieChart";
 
 function Overview() {
   return (
-    <Container>
+    <Container style={{ minHeight: "100vh" }}>
       <h3 id="home" className="d-flex justify-content-center pb-2">
         Overview
       </h3>
