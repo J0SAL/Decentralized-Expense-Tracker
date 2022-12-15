@@ -20,7 +20,7 @@ export const data = {
 export function PieChart() {
   return (
     <div>
-      <h2 className="d-flex justify-content-center">You Balance: ₹ {0}</h2>
+      <h4 className="d-flex justify-content-center">You Balance: ₹ {0}</h4>
       <Pie data={data} />
     </div>
   );
