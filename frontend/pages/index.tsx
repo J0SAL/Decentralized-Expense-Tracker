@@ -3,6 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { FaArrowCircleUp } from "react-icons/fa";
 import Overview from "../components/overview/Overview";
 import PerformanceGraph from "../components/performance/PerformanceGraph";
+import Performers from "../components/top-performers/Performers";
 import TopExpense from "../components/top-performers/TopExpense";
 import TopIncome from "../components/top-performers/TopIncome";
 import Transactions from "../components/transactions/Transactions";
@@ -32,8 +33,7 @@ export default function HomePage() {
         <Overview />
         <Transactions />
         <PerformanceGraph />
-        <TopIncome />
-        <TopExpense />
+        <Performers />
       </Container>
       <button
         className="btn"
