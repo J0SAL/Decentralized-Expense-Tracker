@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -33,10 +33,8 @@ export const data = {
 function IncomeChart() {
   return (
     <div>
-      <h4 className="d-flex justify-content-center">
-        You Income History: ₹ {0}
-      </h4>
-      <Doughnut data={data} />
+      <h4 className="d-flex justify-content-center">Total Income: ₹ {0}</h4>
+      <Pie data={data} />
     </div>
   );
 }

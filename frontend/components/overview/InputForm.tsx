@@ -84,8 +84,9 @@ function InputForm() {
                 name="type"
                 onChange={handleChange}
                 disabled={loading}
+                defaultValue="default"
               >
-                <option disabled selected>
+                <option value="default" disabled>
                   Select Transaction Type
                 </option>
                 <option value="income">Income</option>
@@ -93,7 +94,9 @@ function InputForm() {
               </Form.Select>
             </Col>
             <Col>
-              <Form.Label htmlFor="transaction-type">Category</Form.Label>
+              <Form.Label htmlFor="transaction-type">
+                Category({formData.type})
+              </Form.Label>
               <Form.Select
                 size="sm"
                 name="category"
@@ -101,7 +104,7 @@ function InputForm() {
                 disabled={loading}
               >
                 <option selected disabled>
-                  Select {formData.type} Category
+                  Select Category
                 </option>
                 {selectOptions.map((option, key) => (
                   <option

@@ -8,11 +8,14 @@ function Transactions() {
   return (
     <Container style={{ minHeight: "100vh" }}>
       <h3 id="transactions" className="d-flex justify-content-center my-3">
-        Transactions
+        Your Transactions
       </h3>
       <Row gx={10}>
         <Col md={4} xs={12}>
-          <div style={{ width: "90%" }}>
+          <div
+            style={{ width: "90%", height: "100%" }}
+            className="justify-content-center d-flex flex-column"
+          >
             <IncomeChart />
           </div>
         </Col>
@@ -22,7 +25,10 @@ function Transactions() {
           </div>
         </Col>
         <Col md={4} xs={12}>
-          <div style={{ width: "90%" }}>
+          <div
+            style={{ width: "90%", height: "100%" }}
+            className="justify-content-center d-flex flex-column"
+          >
             <ExpenseChart />
           </div>
         </Col>
