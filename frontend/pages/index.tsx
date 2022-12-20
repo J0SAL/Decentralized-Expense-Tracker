@@ -26,7 +26,6 @@ export default function HomePage() {
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
-  console.log(showButton);
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
       <Container className="mt-5 py-3 bg-white">
