@@ -1,4 +1,6 @@
-import { Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container } from "react-bootstrap";
+import { FaArrowCircleUp } from "react-icons/fa";
 import Overview from "../components/overview/Overview";
 import PerformanceGraph from "../components/performance/PerformanceGraph";
 import TopExpense from "../components/top-performers/TopExpense";
@@ -6,6 +8,25 @@ import TopIncome from "../components/top-performers/TopIncome";
 import Transactions from "../components/transactions/Transactions";
 
 export default function HomePage() {
+  const [showButton, setShowButton] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, true);
+    return () => window.removeEventListener("scroll", handleScroll, true);
+  });
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+  console.log(showButton);
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
       <Container className="mt-5 py-3 bg-white">
@@ -15,6 +36,24 @@ export default function HomePage() {
         <TopIncome />
         <TopExpense />
       </Container>
+      <button
+        className="btn"
+        style={{
+          backgroundColor: "purple",
+          color: "white",
+          width: "50px",
+          height: "50px",
+          position: "fixed",
+          right: 10,
+          bottom: 10,
+          zIndex: 100,
+          borderRadius: "30px",
+        }}
+        onClick={scrollToTop}
+        hidden={!showButton}
+      >
+        ^
+      </button>
     </div>
   );
 }
