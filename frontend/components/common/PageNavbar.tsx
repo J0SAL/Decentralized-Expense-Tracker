@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
-
+import style from "../../styles/Main.module.css";
 function PageNavbar() {
   return (
     <>
@@ -12,7 +12,7 @@ function PageNavbar() {
               src="/logo.png"
               width="30"
               height="30"
-              className="d-inline-block align-top"
+              className={`d-inline-block align-top ${style.rotate}`}
             />{" "}
             Expense Tracker
           </Navbar.Brand>
