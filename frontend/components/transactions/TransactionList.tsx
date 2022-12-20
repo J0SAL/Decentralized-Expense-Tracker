@@ -83,7 +83,7 @@ function TransactionList() {
   return (
     <div className="my-5 my-md-0">
       <div
-        style={{ maxHeight: "65vh", overflowY: "auto", overflowX: "hidden" }}
+        style={{ maxHeight: "72vh", overflowY: "auto", overflowX: "hidden" }}
         className={styles.scrollbar}
       >
         {transactions.map((transaction, key) => (

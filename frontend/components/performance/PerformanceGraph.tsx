@@ -5,7 +5,7 @@ import LineChart from "./LineChart";
 function PerformanceGraph() {
   return (
     <Container>
-      <h1 className="text-center">Perfomance</h1>
+      <h3 className="text-center">Perfomance</h3>
       <div className="mx-5 px-5">
         <LineChart />
       </div>
