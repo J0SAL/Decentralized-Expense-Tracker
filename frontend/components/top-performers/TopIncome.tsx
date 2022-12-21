@@ -49,10 +49,12 @@ export const dougnnutText = {
 
       const dataLabel = data.labels[_active[0].index];
       const dataValue = data.datasets[0].data[_active[0].index];
+      const textColor = data.datasets[0].borderColor[_active[0].index];
 
       ctx.font = "bold 20px sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+      ctx.fillStyle = textColor;
       ctx.fillText(dataLabel + ": " + dataValue, x, y);
     }
   },
