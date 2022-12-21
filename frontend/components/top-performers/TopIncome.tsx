@@ -28,30 +28,45 @@ export const data = {
     },
   ],
 };
-const plugins = [
-  {
-    id: "custom_canvas_background_color",
-    beforeDraw: function (chart: any) {
-      var width = chart.width,
-        height = chart.height,
-        ctx = chart.ctx;
-      ctx.restore();
-      var fontSize = (height / 160).toFixed(2);
-      ctx.font = fontSize + "em sans-serif";
-      ctx.textBaseline = "top";
-      var text = "Foo-bar",
-        textX = Math.round((width - ctx.measureText(text).width) / 2),
-        textY = height / 2;
-      ctx.fillText(text, textX, textY);
-      ctx.save();
-    },
+
+export const dougnnutText = {
+  id: "doughnutText",
+  afterDatasetDraw(chart: any, args: any, pluginOptions: any) {
+    const {
+      ctx,
+      data,
+      options,
+      _active,
+      chartArea: { top, bottom, left, right, width, height },
+    } = chart;
+
+    ctx.save();
+
+    let x, y;
+    if (_active && _active.length) {
+      x = _active[0].element.x;
+      y = _active[0].element.y;
+
+      const dataLabel = data.labels[_active[0].index];
+      const dataValue = data.datasets[0].data[_active[0].index];
+
+      ctx.font = "bold 20px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(dataLabel + ": " + dataValue, x, y);
+    }
   },
-];
+};
+
 function TopIncome() {
   return (
     <div className="text-center">
       <h4>TopIncome</h4>
-      <Doughnut data={data} plugins={plugins} options={{ cutout: "70%" }} />
+      <Doughnut
+        data={data}
+        plugins={[dougnnutText]}
+        options={{ cutout: "70%" }}
+      />
     </div>
   );
 }
