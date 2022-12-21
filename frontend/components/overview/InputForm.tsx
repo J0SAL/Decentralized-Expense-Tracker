@@ -102,8 +102,9 @@ function InputForm() {
                 name="category"
                 onChange={handleChange}
                 disabled={loading}
+                defaultValue="default"
               >
-                <option selected disabled>
+                <option value="default" disabled>
                   Select Category
                 </option>
                 {selectOptions.map((option, key) => (
