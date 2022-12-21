@@ -2,7 +2,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { BiMoney } from "react-icons/bi";
 import styles from "../../styles/Scrollbar.module.css";
-
+import { BsFillTrashFill } from "react-icons/bs";
+import style from "../../styles/Main.module.css";
 var transactions = [
   {
     id: 1,
@@ -125,7 +126,7 @@ const TransactionCard = ({
           <BiMoney />
         </div>
       </Col>
-      <Col xs={5}>
+      <Col xs={4}>
         <div className="d-flex flex-column">
           <p
             style={{
@@ -146,6 +147,7 @@ const TransactionCard = ({
           <h5>{transaction.title}</h5>
         </div>
       </Col>
+
       <Col xs={4} className="my-auto">
         <div>
           <p
@@ -159,6 +161,13 @@ const TransactionCard = ({
           </p>
           <h4 className="py-0 ">₹{transaction.amount}</h4>
         </div>
+      </Col>
+      <Col
+        xs={1}
+        className={`my-auto px-1
+       ${style.deleteBtn}`}
+      >
+        <BsFillTrashFill />
       </Col>
     </Row>
   );
