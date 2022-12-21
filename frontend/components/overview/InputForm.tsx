@@ -242,11 +242,13 @@ function InputForm() {
                 <span className="spinner-border" />
               )}
             </Button>
-            {/* 
-            <Button variant="danger" onClick={attachMicrophone}></Button>
+
+            <Button variant="danger" onClick={attachMicrophone}>
+              <TfiMicrophone />
+            </Button>
             <Button variant="warning" onPointerDown={start} onPointerUp={stop}>
               {listening ? <FaAssistiveListeningSystems /> : <TfiMicrophone />}
-            </Button> */}
+            </Button>
           </div>
         </Form>
       </Card.Body>

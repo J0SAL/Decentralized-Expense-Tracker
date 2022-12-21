@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import InputForm from "./InputForm";
 import { PieChart } from "./PieChart";
-import {
-  PushToTalkButton,
-  PushToTalkButtonContainer,
-} from "@speechly/react-ui";
+// import {
+//   PushToTalkButton,
+//   PushToTalkButtonContainer,
+// } from "@speechly/react-ui";
 function Overview() {
   return (
     <Container style={{ minHeight: "100vh" }}>
@@ -35,9 +35,9 @@ function Overview() {
           </div>
         </Col>
       </Row>
-      <PushToTalkButtonContainer>
+      {/* <PushToTalkButtonContainer>
         <PushToTalkButton />
-      </PushToTalkButtonContainer>
+      </PushToTalkButtonContainer> */}
     </Container>
   );
 }
