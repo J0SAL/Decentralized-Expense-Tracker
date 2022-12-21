@@ -6,7 +6,7 @@ import TopIncome from "./TopIncome";
 function Performers() {
   return (
     <Container className="mb-5">
-      <h3 className="text-center">Top Transactions</h3>
+      <h3 className="text-center">Diversity</h3>
       <Row>
         <Col md={6}>
           <div

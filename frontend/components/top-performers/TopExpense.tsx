@@ -26,7 +26,7 @@ const data = {
 function TopExpense() {
   return (
     <div className="text-center">
-      <h4>TopExpense</h4>
+      <h4>Top 5 Expense Sources</h4>
       <Doughnut
         data={data}
         plugins={[dougnnutText]}

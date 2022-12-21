@@ -63,7 +63,7 @@ export const dougnnutText = {
 function TopIncome() {
   return (
     <div className="text-center">
-      <h4>TopIncome</h4>
+      <h4>Top 5 Income Sources</h4>
       <Doughnut
         data={data}
         plugins={[dougnnutText]}
