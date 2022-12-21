@@ -38,7 +38,7 @@ function InputForm() {
   const { segment, listening, attachMicrophone, start, stop } =
     useSpeechContext();
 
-  useEffect(() => {
+  const getSpeech = () => {
     if (segment) {
       if (segment.intent.intent === "add_expense") {
         setFormData({ ...formData, type: "expense" });
@@ -83,6 +83,9 @@ function InputForm() {
         createTransaction();
       }
     }
+  };
+  useEffect(() => {
+    getSpeech();
   }, [segment]);
 
   const handleChange = (e: React.ChangeEvent<HTMLElement> | undefined) => {
