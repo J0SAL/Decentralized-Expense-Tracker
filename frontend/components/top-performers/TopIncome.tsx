@@ -30,6 +30,7 @@ export const data = {
 };
 const plugins = [
   {
+    id: "custom_canvas_background_color",
     beforeDraw: function (chart: any) {
       var width = chart.width,
         height = chart.height,
@@ -50,12 +51,7 @@ function TopIncome() {
   return (
     <div className="text-center">
       <h4>TopIncome</h4>
-      <Doughnut
-        type="doughnut"
-        data={data}
-        plugins={plugins}
-        options={{ cutout: "70%" }}
-      />
+      <Doughnut data={data} plugins={plugins} options={{ cutout: "70%" }} />
     </div>
   );
 }
