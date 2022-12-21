@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Row,
   Col,
@@ -8,26 +8,82 @@ import {
   InputGroup,
   FloatingLabel,
 } from "react-bootstrap";
-import { FaCalendarAlt } from "react-icons/fa";
-import styles from "../../styles/Main.module.css";
+import { FaCalendarAlt, FaAssistiveListeningSystems } from "react-icons/fa";
+import { TfiMicrophone } from "react-icons/tfi";
+import { useSpeechContext } from "@speechly/react-client";
 import formatDate from "../../utils/formatDate";
 import {
   incomeCategories,
   expenseCategories,
 } from "../../constants/categories";
 
+type initialStateType = {
+  amount: undefined | number | string;
+  category: string;
+  type: string;
+  date: string;
+  description: string;
+};
 function InputForm() {
-  const initialState = {
-    amount: null,
-    category: "",
-    type: "",
+  const initialState: initialStateType = {
+    amount: undefined,
+    category: "default",
+    type: "default",
     date: formatDate(new Date()),
     description: "",
   };
 
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
-  //   const [selectOptions, setSelectOptions] = useState([]);
+  const { segment, listening, attachMicrophone, start, stop } =
+    useSpeechContext();
+
+  useEffect(() => {
+    if (segment) {
+      if (segment.intent.intent === "add_expense") {
+        setFormData({ ...formData, type: "expense" });
+      } else if (segment.intent.intent === "add_income") {
+        setFormData({ ...formData, type: "income" });
+      } else if (
+        segment.isFinal &&
+        segment.intent.intent === "create_transaction"
+      ) {
+        return createTransaction();
+      } else if (segment.intent.intent === "cancelTransaction") {
+        setFormData(initialState);
+      }
+
+      segment.entities.forEach((e) => {
+        switch (e.type) {
+          case "amount":
+            setFormData({ ...formData, amount: e.value });
+            break;
+          case "category":
+            const c = `${e.value.charAt(0)}${e.value.toLowerCase().slice(1)}`;
+            if (incomeCategories.map((iC) => iC.type).includes(c)) {
+              setFormData({ ...formData, category: c, type: "income" });
+            } else if (expenseCategories.map((iC) => iC.type).includes(c)) {
+              setFormData({ ...formData, category: c, type: "expense" });
+            }
+            break;
+          case "date":
+            setFormData({ ...formData, date: e.value });
+            break;
+          default:
+            break;
+        }
+      });
+      if (
+        segment.isFinal &&
+        formData.amount &&
+        formData.type &&
+        formData.date &&
+        formData.category
+      ) {
+        createTransaction();
+      }
+    }
+  }, [segment]);
 
   const handleChange = (e: React.ChangeEvent<HTMLElement> | undefined) => {
     let { name, value } = e!.target as HTMLInputElement;
@@ -42,10 +98,7 @@ function InputForm() {
       }, 2000);
     });
   };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLElement> | undefined) => {
-    e!.preventDefault();
-    console.log(formData);
+  const createTransaction = async () => {
     setLoading(true);
     try {
       // sent to blockchain
@@ -54,13 +107,20 @@ function InputForm() {
       setLoading(false);
     }
     setFormData(initialState);
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLElement> | undefined) => {
+    e!.preventDefault();
+    console.log(formData);
+    await createTransaction();
     (e!.target as HTMLFormElement).reset();
   };
 
   const canSubmit: boolean =
-    formData.amount != null &&
+    formData.amount != undefined &&
     formData.category.length > 0 &&
+    formData.category !== "default" &&
     formData.type.length > 0 &&
+    formData.type !== "default" &&
     formData.date.length > 0 &&
     formData.description.length > 0 &&
     loading === false;
@@ -75,6 +135,7 @@ function InputForm() {
         Add Transaction
       </Card.Header>
       <Card.Body>
+        <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={6} xs={6}>
@@ -85,6 +146,7 @@ function InputForm() {
                 onChange={handleChange}
                 disabled={loading}
                 defaultValue="default"
+                value={formData.type}
               >
                 <option value="default" disabled>
                   Select Transaction Type
@@ -94,8 +156,11 @@ function InputForm() {
               </Form.Select>
             </Col>
             <Col>
-              <Form.Label htmlFor="transaction-type">
-                Category {formData.type !== "" && `(${formData.type})`}
+              <Form.Label htmlFor="transaction-cat">
+                Category{" "}
+                {formData.type !== "" &&
+                  formData.type !== "default" &&
+                  `(${formData.type})`}
               </Form.Label>
               <Form.Select
                 size="sm"
@@ -103,6 +168,7 @@ function InputForm() {
                 onChange={handleChange}
                 disabled={loading}
                 defaultValue="default"
+                value={formData.category}
               >
                 <option value="default" disabled>
                   Select Category
@@ -119,32 +185,33 @@ function InputForm() {
               </Form.Select>
             </Col>
           </Row>
-          <Form.Label htmlFor="transaction-type">Amount</Form.Label>
+          <Form.Label htmlFor="transaction-amount">Amount</Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>₹</InputGroup.Text>
             <Form.Control
-              id="transaction-type"
+              id="transaction-amount"
               placeholder="Enter Amount"
               type="number"
               name="amount"
               onChange={handleChange}
               disabled={loading}
+              value={formData.amount}
               required
             />
           </InputGroup>
 
-          <Form.Label htmlFor="transaction-type">Date</Form.Label>
+          <Form.Label htmlFor="transaction-date">Date</Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>
               <FaCalendarAlt />
             </InputGroup.Text>
             <Form.Control
-              id="transaction-type"
-              placeholder="Enter Amount"
+              id="transaction-date"
               type="date"
               name="date"
               onChange={handleChange}
               disabled={loading}
+              value={formData.date}
               required
             />
           </InputGroup>
@@ -160,17 +227,24 @@ function InputForm() {
               style={{ height: "80px" }}
               readOnly={loading}
               plaintext={loading}
+              value={formData.description}
               required
             />
           </FloatingLabel>
-
-          <Button variant="primary" type="submit" disabled={!canSubmit}>
-            {!loading ? (
-              `Add ${formData.type}`
-            ) : (
-              <span className="spinner-border" />
-            )}
-          </Button>
+          <div className="d-flex flex-row justify-content-evenly">
+            <Button variant="primary" type="submit" disabled={!canSubmit}>
+              {!loading ? (
+                `Add ${formData.type !== "default" ? formData.type : ""}`
+              ) : (
+                <span className="spinner-border" />
+              )}
+            </Button>
+            {/* 
+            <Button variant="danger" onClick={attachMicrophone}></Button>
+            <Button variant="warning" onPointerDown={start} onPointerUp={stop}>
+              {listening ? <FaAssistiveListeningSystems /> : <TfiMicrophone />}
+            </Button> */}
+          </div>
         </Form>
       </Card.Body>
     </Card>
