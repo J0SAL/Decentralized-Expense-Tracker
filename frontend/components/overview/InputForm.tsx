@@ -95,7 +95,7 @@ function InputForm() {
             </Col>
             <Col>
               <Form.Label htmlFor="transaction-type">
-                Category({formData.type})
+                Category {formData.type !== "" && `(${formData.type})`}
               </Form.Label>
               <Form.Select
                 size="sm"
