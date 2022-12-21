@@ -22,18 +22,6 @@ ChartJS.register(
   Filler
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: false,
-    },
-  },
-};
-
 const labels = [
   "January",
   "February",
@@ -64,6 +52,21 @@ export const data = {
 };
 
 function LineChart() {
-  return <Line data={data} options={options} />;
+  return (
+    <Line
+      data={data}
+      options={{
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          title: {
+            display: false,
+          },
+        },
+      }}
+    />
+  );
 }
 export default LineChart;
