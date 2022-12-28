@@ -24,7 +24,7 @@ export const networkConfig: networkConfigInfo = {
     },
 }
 
-export const frontEndContractsFile = "../../constants/contractAddresses.json"
-export const frontEndAbiFile = "../../constants/abi.json"
+export const frontEndContractsFile = "../frontend/constants/contractAddresses.json"
+export const frontEndAbiFile = "../frontend/constants/abi.json"
 
 export const developmentChains = ["hardhat", "localhost"]
