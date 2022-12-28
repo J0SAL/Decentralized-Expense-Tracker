@@ -6,7 +6,7 @@ async function main() {
     console.log(`Got contract ${expenseTracker.address}`)
 
     console.log("Adding Expense...")
-    const transactionResponse = await expenseTracker.addExpense(10, "party", 13112022)
+    const transactionResponse = await expenseTracker.addExpense("id-e-01",10020, "shoes shoping", "12-Dec-2022", "shopping")
     await transactionResponse.wait(1)
 
     console.log("Added Expense")
