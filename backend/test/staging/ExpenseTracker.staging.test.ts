@@ -15,19 +15,22 @@ developmentChains.includes(network.name)
         await expenseTracker.deployed();
       })
 
-    it("Adding & Fetching the transaction", async function() {
-        const transactionResponse1 = await expenseTracker.addExpense(10, "party", 13112022);
+      it("Add, Delete & Fetch the transaction", async function() {
+        const transactionResponse1 = await expenseTracker.addExpense("ide1", 101, "demo description", "12-Dec-2022", "party");
         await transactionResponse1.wait(1);
-        const transactionResponse2 = await expenseTracker.addIncome(10, "salary", 14112022);
+
+        const transactionResponse2 = await expenseTracker.addIncome("idi1", 1001, "got first salaray", "01-Dec-2022", "salary")
         await transactionResponse2.wait(1);
+
+        const transactionResponse3 = await expenseTracker.deleteTransaction("idi1");
+        await transactionResponse3.wait(1);
+
+        expect(await expenseTracker.getUserTransactionsLen()).to.equal(1);
+
         const transactions = await expenseTracker.getUserTransactions();
-        expect(Number(transactions[0].t_amount)).to.equal(10);
-        expect(transactions[0].t_disc).to.equal("party");
-        expect(Number(transactions[0].t_date)).to.equal(13112022);
-        expect(transactions[0].t_type).to.equal(1);
-        expect(Number(transactions[1].t_amount)).to.equal(10);
-        expect(transactions[1].t_disc).to.equal("salary");
-        expect(Number(transactions[1].t_date)).to.equal(14112022);
-        expect(transactions[1].t_type).to.equal(0);
+        expect(Number(transactions[0].amount)).to.equal(101);
+        expect(transactions[0].category).to.equal("party");
+        expect(transactions[0].date).to.equal("12-Dec-2022");
+        expect(transactions[0].ttype).to.equal(1);
     })
 });
