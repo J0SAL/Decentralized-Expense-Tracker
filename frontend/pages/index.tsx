@@ -4,9 +4,12 @@ import Overview from "../components/overview/Overview";
 import PerformanceGraph from "../components/performance/PerformanceGraph";
 import Performers from "../components/top-performers/Performers";
 import Transactions from "../components/transactions/Transactions";
+import { useWeb3Contract, useMoralis } from "react-moralis";
+import Login from "../components/common/Login";
 
 export default function HomePage() {
   const [showButton, setShowButton] = useState(false);
+  const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
 
   const handleScroll = () => {
     if (window.scrollY > 300) {
@@ -24,6 +27,8 @@ export default function HomePage() {
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+
+  if (!isWeb3Enabled) return <Login />;
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
       <Container className="mt-5 py-3 bg-white">
