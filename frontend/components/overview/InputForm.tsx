@@ -33,7 +33,7 @@ function InputForm() {
     date: formatDate(new Date()),
     description: "",
   };
-  const { deleteContractTransaction } = useContext(dataContext);
+  const { addIncomeToContract } = useContext(dataContext);
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
   const { segment, listening, attachMicrophone, start, stop } =
@@ -142,12 +142,16 @@ function InputForm() {
         <Button
           variant="primary"
           onClick={() =>
-            deleteContractTransaction({
-              id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd33",
+            addIncomeToContract({
+              _id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd12",
+              _amount: 100,
+              _category: "Salary",
+              _date: "2021-09-01",
+              _description: "Salary",
             })
           }
         >
-          Delete
+          Income
         </Button>
         <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
         <Form onSubmit={handleSubmit}>

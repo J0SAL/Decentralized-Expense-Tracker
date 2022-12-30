@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import DataContext from "./dataContext";
 import { contractAddresses, abi } from "../../constants";
 import { useWeb3Contract, useMoralis } from "react-moralis";
-// import { useNotification } from "web3uikit";
+import { useNotification } from "web3uikit";
+import { ContractTransaction } from "ethers";
 
 interface contractAddressesInterface {
   [key: string]: string[];
@@ -23,7 +24,7 @@ function DataState({ children }: { children: React.ReactNode }) {
   const chainId: string = parseInt(chainIdHex!).toString();
   const raffleAddress = chainId in addresses ? addresses[chainId][0] : null;
 
-  // const dispatch = useNotification();
+  const dispatch = useNotification();
 
   const {
     runContractFunction: getTransactions,
@@ -54,7 +55,7 @@ function DataState({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const { runContractFunction: addIncome } = useWeb3Contract({});
+  const { runContractFunction: addIncome } = useWeb3Contract();
   const addIncomeToContract = async (_params: transaction) => {
     if (isWeb3Enabled) {
       let options = {
@@ -63,8 +64,11 @@ function DataState({ children }: { children: React.ReactNode }) {
         functionName: "addIncome",
         params: _params,
       };
-      await addIncome({ params: options });
-      console.log("Added Income");
+      await addIncome({
+        params: options,
+        onSuccess: (tx) => handleSuccess(tx as ContractTransaction),
+        onError: (error) => handleError(error),
+      });
       updateUI();
     }
   };
@@ -78,8 +82,11 @@ function DataState({ children }: { children: React.ReactNode }) {
         functionName: "addExpense",
         params: _params,
       };
-      await addExpense({ params: options });
-      console.log("Expense Income");
+      await addExpense({
+        params: options,
+        onSuccess: (tx) => handleSuccess(tx as ContractTransaction),
+        onError: (error) => handleError(error),
+      });
       updateUI();
     }
   };
@@ -93,11 +100,44 @@ function DataState({ children }: { children: React.ReactNode }) {
         functionName: "deleteTransaction",
         params: _params,
       };
-      await deleteTransaction({ params: options });
-      console.log("Transaction Deleted from the Smart Contract");
+      await deleteTransaction({
+        params: options,
+        onSuccess: (tx) => handleSuccess(tx as ContractTransaction),
+        onError: (error) => handleError(error),
+      });
       updateUI();
     }
   };
+
+  const handleSuccess = async function (tx: ContractTransaction) {
+    await tx.wait(1);
+    handleNewNotification({
+      _type: "info",
+      _message: "Transaction Complete!",
+    });
+    updateUI();
+  };
+
+  const handleError = function (error: any) {
+    console.log(error);
+    handleNewNotification({ _type: "error", _message: "Transaction Failed!" });
+  };
+
+  const handleNewNotification = function ({
+    _type,
+    _message,
+  }: {
+    _type: string;
+    _message: string;
+  }) {
+    dispatch({
+      type: _type,
+      message: _message,
+      title: "Transaction Notification",
+      position: "bottomR",
+    });
+  };
+
   return (
     <DataContext.Provider
       value={{
