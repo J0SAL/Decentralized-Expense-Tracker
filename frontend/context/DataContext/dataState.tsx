@@ -8,7 +8,7 @@ import { ContractTransaction } from "ethers";
 interface contractAddressesInterface {
   [key: string]: string[];
 }
-type transaction = {
+type transactionparam = {
   _id: string;
   _amount: number;
   _date: string;
@@ -16,8 +16,18 @@ type transaction = {
   _category: string;
 };
 
+type transaction = {
+  id: string;
+  amount: number;
+  date: string;
+  description: string;
+  category: string;
+  isDeleted?: boolean;
+  type: string;
+};
+
 function DataState({ children }: { children: React.ReactNode }) {
-  const [transactions, setTransctions] = useState([]);
+  const [transactions, setTransactions] = useState<transaction[]>([]);
 
   const addresses: contractAddressesInterface = contractAddresses;
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
@@ -50,13 +60,26 @@ function DataState({ children }: { children: React.ReactNode }) {
         (await getTransactionsLength()) as number
       );
       console.log("Transaction Length", transactionsLength);
-      const transactions = (await getTransactions()) as [];
-      console.log("Transactions", transactions);
+      let arr = (await getTransactions()) as [];
+      let localtransactions = [] as transaction[];
+      for (let i = 0; i < transactionsLength; i++) {
+        localtransactions.push({
+          id: arr[i][0],
+          amount: Number(arr[i][4]),
+          date: arr[i][5],
+          description: arr[i][3],
+          category: arr[i][2],
+          // isDeleted: arr[i].isDeleted,
+          type: arr[i][1],
+        });
+      }
+      console.log("Transactions", localtransactions);
+      setTransactions(localtransactions);
     }
   };
 
   const { runContractFunction: addIncome } = useWeb3Contract();
-  const addIncomeToContract = async (_params: transaction) => {
+  const addIncomeToContract = async (_params: transactionparam) => {
     if (isWeb3Enabled) {
       let options = {
         abi: abi,
@@ -73,8 +96,8 @@ function DataState({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const { runContractFunction: addExpense } = useWeb3Contract({});
-  const addExpenseToContract = async (_params: transaction) => {
+  const { runContractFunction: addExpense } = useWeb3Contract();
+  const addExpenseToContract = async (_params: transactionparam) => {
     if (isWeb3Enabled) {
       let options = {
         abi: abi,
@@ -91,7 +114,7 @@ function DataState({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const { runContractFunction: deleteTransaction } = useWeb3Contract({});
+  const { runContractFunction: deleteTransaction } = useWeb3Contract();
   const deleteContractTransaction = async (_params: { id: string }) => {
     if (isWeb3Enabled) {
       let options = {
