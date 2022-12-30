@@ -148,7 +148,6 @@ function InputForm() {
                 name="type"
                 onChange={handleChange}
                 disabled={loading}
-                defaultValue="default"
                 value={formData.type}
               >
                 <option value="default" disabled>
@@ -170,7 +169,6 @@ function InputForm() {
                 name="category"
                 onChange={handleChange}
                 disabled={loading}
-                defaultValue="default"
                 value={formData.category}
               >
                 <option value="default" disabled>
