@@ -1,11 +1,12 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import style from "../../styles/Main.module.css";
+import { ConnectButton } from "web3uikit";
 function PageNavbar() {
   return (
     <>
       <Navbar bg="light" variant="light" fixed="top">
-        <Container className="d-flex justify-content-center">
+        <Container className="d-flex justify-content-around">
           <Navbar.Brand href="#home">
             <img
               alt=""
@@ -16,6 +17,7 @@ function PageNavbar() {
             />{" "}
             Expense Tracker
           </Navbar.Brand>
+          <ConnectButton moralisAuth={false} />
         </Container>
       </Navbar>
     </>

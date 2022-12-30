@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import Overview from "../components/overview/Overview";
 import PerformanceGraph from "../components/performance/PerformanceGraph";
 import Performers from "../components/top-performers/Performers";
 import Transactions from "../components/transactions/Transactions";
-import { useWeb3Contract, useMoralis } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import Login from "../components/common/Login";
+import dataContext from "../context/DataContext/dataContext";
 
 export default function HomePage() {
   const [showButton, setShowButton] = useState(false);
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
+  const { updateUI } = useContext(dataContext);
 
   const handleScroll = () => {
     if (window.scrollY > 300) {
@@ -27,6 +29,12 @@ export default function HomePage() {
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    if (isWeb3Enabled) {
+      updateUI();
+    }
+  }, [isWeb3Enabled]);
 
   if (!isWeb3Enabled) return <Login />;
   return (

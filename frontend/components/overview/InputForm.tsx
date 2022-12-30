@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Row,
   Col,
@@ -16,6 +16,7 @@ import {
   incomeCategories,
   expenseCategories,
 } from "../../constants/categories";
+import dataContext from "../../context/DataContext/dataContext";
 
 type initialStateType = {
   amount: undefined | number | string;
@@ -32,7 +33,7 @@ function InputForm() {
     date: formatDate(new Date()),
     description: "",
   };
-
+  const { deleteContractTransaction } = useContext(dataContext);
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
   const { segment, listening, attachMicrophone, start, stop } =
@@ -138,6 +139,16 @@ function InputForm() {
         Add Transaction
       </Card.Header>
       <Card.Body>
+        <Button
+          variant="primary"
+          onClick={() =>
+            deleteContractTransaction({
+              id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd33",
+            })
+          }
+        >
+          Delete
+        </Button>
         <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
         <Form onSubmit={handleSubmit}>
           <Row>
