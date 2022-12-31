@@ -1,34 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { dougnnutText } from "./TopIncome";
 ChartJS.register(ArcElement, Tooltip, Legend);
+import { expenseColor } from "../../constants/categories";
+import dataContext from "../../context/DataContext/dataContext";
 
-const data = {
-  labels: ["Red", "Green", "Yellow", "Blue", "Purple"],
+export const data = {
+  labels: ["No Color"],
   datasets: [
     {
-      data: [300, 50, 100, 40, 120],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB"],
-      borderColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB"],
-      hoverBackgroundColor: [
-        "#FF6384",
-        "#36A2EB",
-        "#FFCE56",
-        "#FF6384",
-        "#36A2EB",
-      ],
+      label: "amount",
+      data: [0],
+      backgroundColor: ["white"],
     },
   ],
-  text: "23%",
 };
 
 function TopExpense() {
+  const { expenses } = useContext(dataContext);
+  const [chartData, setChartData] = useState(data);
+  useEffect(() => {
+    const top5 = Object.entries(expenses) // create Array of Arrays with [key, value]
+      .sort(([, a], [, b]) => b - a) // sort by value, descending (b-a)
+      .slice(0, 5);
+
+    console.log(top5);
+    data.labels = top5.map((e) => e[0]);
+    data.datasets[0].data = top5.map((e) => e[1] as number);
+    data.datasets[0].backgroundColor = top5.map(
+      (e) => expenseColor[e[0] as string]
+    );
+
+    setChartData(data);
+  }, [expenses]);
   return (
     <div className="text-center">
       <h4>Top 5 Expense Sources</h4>
       <Doughnut
-        data={data}
+        data={chartData}
         plugins={[dougnnutText]}
         options={{ cutout: "70%" }}
       />

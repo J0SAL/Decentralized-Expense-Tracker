@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import dataContext from "../../context/DataContext/dataContext";
+import { incomeColor } from "../../constants/categories";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -49,7 +51,7 @@ export const dougnnutText = {
 
       const dataLabel = data.labels[_active[0].index];
       const dataValue = data.datasets[0].data[_active[0].index];
-      const textColor = data.datasets[0].borderColor[_active[0].index];
+      const textColor = data.datasets[0].backgroundColor[_active[0].index];
 
       ctx.font = "bold 20px sans-serif";
       ctx.textAlign = "center";
@@ -61,11 +63,27 @@ export const dougnnutText = {
 };
 
 function TopIncome() {
+  const { incomes } = useContext(dataContext);
+  const [chartData, setChartData] = useState(data);
+  useEffect(() => {
+    const top5 = Object.entries(incomes) // create Array of Arrays with [key, value]
+      .sort(([, a], [, b]) => b - a) // sort by value, descending (b-a)
+      .slice(0, 5);
+
+    console.log(top5);
+    data.labels = top5.map((e) => e[0]);
+    data.datasets[0].data = top5.map((e) => e[1] as number);
+    data.datasets[0].backgroundColor = top5.map(
+      (e) => incomeColor[e[0] as string]
+    );
+
+    setChartData(data);
+  }, [incomes]);
   return (
     <div className="text-center">
       <h4>Top 5 Income Sources</h4>
       <Doughnut
-        data={data}
+        data={chartData}
         plugins={[dougnnutText]}
         options={{ cutout: "70%" }}
       />
