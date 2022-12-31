@@ -25,6 +25,21 @@ type transaction = {
   isDeleted?: boolean;
   type: number;
 };
+
+var defaultYearData = {
+  January: 0,
+  February: 0,
+  March: 0,
+  April: 0,
+  May: 0,
+  June: 0,
+  July: 0,
+  August: 0,
+  September: 0,
+  October: 0,
+  November: 0,
+  December: 0,
+};
 var demo_transactions = [
   {
     amount: 100,
@@ -89,6 +104,13 @@ function DataState({ children }: { children: React.ReactNode }) {
 
   const [incomes, setIncomes] = useState<{ [id: string]: number }>({});
   const [expenses, setExpenses] = useState<{ [id: string]: number }>({});
+
+  const [yearExpenses, setYearExpenses] = useState<{ [id: string]: number }>(
+    defaultYearData
+  );
+  const [yearIncomes, setYearIncomes] = useState<{ [id: string]: number }>(
+    defaultYearData
+  );
 
   const [overview, setOverview] = useState<{ income: number; expense: number }>(
     { income: 0, expense: 0 }
@@ -228,6 +250,40 @@ function DataState({ children }: { children: React.ReactNode }) {
     setExpenses(t);
   };
 
+  const getMonth = (monthid: string) => {
+    if (monthid === "1") return "January";
+    else if (monthid === "2") return "February";
+    else if (monthid === "3") return "March";
+    else if (monthid === "4") return "April";
+    else if (monthid === "5") return "May";
+    else if (monthid === "6") return "June";
+    else if (monthid === "7") return "July";
+    else if (monthid === "8") return "August";
+    else if (monthid === "9") return "September";
+    else if (monthid === "10") return "October";
+    else if (monthid === "11") return "November";
+    return "December";
+  };
+  const getYearPerformance = async () => {
+    let tempIncomes: { [id: string]: number } = defaultYearData;
+    let tempExpenses: { [id: string]: number } = defaultYearData;
+
+    transactions.map((tx) => {
+      let month = getMonth(tx.date.split("-")[1]);
+      if (tx.type === 0) {
+        tempIncomes[month] = tempIncomes[month]
+          ? tempIncomes[month] + tx.amount
+          : tx.amount;
+      } else if (tx.type === 1) {
+        tempExpenses[month] = tempExpenses[month]
+          ? tempExpenses[month] + tx.amount
+          : tx.amount;
+      }
+    });
+    setYearExpenses(tempExpenses);
+    setYearIncomes(tempIncomes);
+  };
+
   const handleSuccess = async function (tx: ContractTransaction) {
     await tx.wait(1);
     handleNewNotification({
@@ -261,6 +317,7 @@ function DataState({ children }: { children: React.ReactNode }) {
     getOverview();
     getIncomes();
     getExpenses();
+    getYearPerformance();
   }, [transactions]);
 
   return (
@@ -275,6 +332,8 @@ function DataState({ children }: { children: React.ReactNode }) {
         addIncomeToContract,
         addExpenseToContract,
         deleteContractTransaction,
+        yearExpenses,
+        yearIncomes,
       }}
     >
       {children}
