@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DataContext from "./dataContext";
 import { contractAddresses, abi } from "../../constants";
 import { useWeb3Contract, useMoralis } from "react-moralis";
-import { useNotification } from "web3uikit";
+import { notifyType, useNotification } from "web3uikit";
 import { ContractTransaction } from "ethers";
 
 interface contractAddressesInterface {
@@ -23,11 +23,76 @@ type transaction = {
   description: string;
   category: string;
   isDeleted?: boolean;
-  type: string;
+  type: number;
 };
-
+var demo_transactions = [
+  {
+    amount: 100,
+    category: "Salary",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd12",
+    type: 0,
+  },
+  {
+    amount: 100,
+    category: "Clothes",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd13",
+    type: 1,
+  },
+  {
+    amount: 100,
+    category: "Business",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd14",
+    type: 0,
+  },
+  {
+    amount: 100,
+    category: "Gifts",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd15",
+    type: 0,
+  },
+  {
+    amount: 100,
+    category: "Lottery",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd16",
+    type: 0,
+  },
+  {
+    amount: 100,
+    category: "Car",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd17",
+    type: 1,
+  },
+  {
+    amount: 50,
+    category: "Food",
+    date: "2021-09-01",
+    description: "Salary",
+    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd18",
+    type: 1,
+  },
+];
 function DataState({ children }: { children: React.ReactNode }) {
-  const [transactions, setTransactions] = useState<transaction[]>([]);
+  const [transactions, setTransactions] =
+    useState<transaction[]>(demo_transactions);
+
+  const [incomes, setIncomes] = useState<{ [id: string]: number }>({});
+  const [expenses, setExpenses] = useState<{ [id: string]: number }>({});
+
+  const [overview, setOverview] = useState<{ income: number; expense: number }>(
+    { income: 0, expense: 0 }
+  );
 
   const addresses: contractAddressesInterface = contractAddresses;
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
@@ -132,6 +197,37 @@ function DataState({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getOverview = async () => {
+    let income = 0,
+      expense = 0;
+    transactions.map((tx) => {
+      if (tx.type == 0) income += tx.amount;
+      else expense += tx.amount;
+    });
+    setOverview({ income, expense });
+  };
+
+  const getIncomes = async () => {
+    let t: { [id: string]: number } = {};
+    transactions.map((tx) => {
+      if (tx.type === 0)
+        t[tx.category] = t[tx.category]
+          ? t[tx.category] + tx.amount
+          : tx.amount;
+    });
+    setIncomes(t);
+  };
+  const getExpenses = async () => {
+    let t: { [id: string]: number } = {};
+    transactions.map((tx) => {
+      if (tx.type === 1)
+        t[tx.category] = t[tx.category]
+          ? t[tx.category] + tx.amount
+          : tx.amount;
+    });
+    setExpenses(t);
+  };
+
   const handleSuccess = async function (tx: ContractTransaction) {
     await tx.wait(1);
     handleNewNotification({
@@ -150,7 +246,7 @@ function DataState({ children }: { children: React.ReactNode }) {
     _type,
     _message,
   }: {
-    _type: string;
+    _type: notifyType;
     _message: string;
   }) {
     dispatch({
@@ -161,10 +257,19 @@ function DataState({ children }: { children: React.ReactNode }) {
     });
   };
 
+  useEffect(() => {
+    getOverview();
+    getIncomes();
+    getExpenses();
+  }, [transactions]);
+
   return (
     <DataContext.Provider
       value={{
         transactions,
+        overview,
+        incomes,
+        expenses,
         getTransactions,
         updateUI,
         addIncomeToContract,

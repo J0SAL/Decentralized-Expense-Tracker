@@ -23,6 +23,32 @@ const expenseColors = [
   "#f55b5f",
 ];
 
+export const incomeColor = {
+  Business: incomeColors[0],
+  Investments: incomeColors[1],
+  "Extra income": incomeColors[2],
+  Deposits: incomeColors[3],
+  Lottery: incomeColors[4],
+  Gifts: incomeColors[5],
+  Salary: incomeColors[6],
+  Savings: incomeColors[7],
+  "Rental income": incomeColors[8],
+};
+
+export const expenseColor = {
+  Bills: expenseColors[0],
+  Car: expenseColors[1],
+  Clothes: expenseColors[2],
+  Travel: expenseColors[3],
+  Food: expenseColors[4],
+  Shopping: expenseColors[5],
+  House: expenseColors[6],
+  Entertainment: expenseColors[7],
+  Phone: expenseColors[8],
+  Pets: expenseColors[9],
+  Other: expenseColors[10],
+};
+
 export const incomeCategories = [
   { type: "Business", color: incomeColors[0] },
   { type: "Investments", color: incomeColors[1] },
