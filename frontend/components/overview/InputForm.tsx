@@ -158,20 +158,6 @@ function InputForm() {
         Add Transaction
       </Card.Header>
       <Card.Body>
-        <Button
-          variant="primary"
-          onClick={() =>
-            addIncomeToContract({
-              _id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd12",
-              _amount: 100,
-              _category: "Salary",
-              _date: "2021-09-01",
-              _description: "Salary",
-            })
-          }
-        >
-          Income
-        </Button>
         <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
         <Form onSubmit={handleSubmit}>
           <Row>
