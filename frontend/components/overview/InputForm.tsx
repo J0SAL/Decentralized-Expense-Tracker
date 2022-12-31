@@ -17,6 +17,7 @@ import {
   expenseCategories,
 } from "../../constants/categories";
 import dataContext from "../../context/DataContext/dataContext";
+import { v4 as uuid } from "uuid";
 
 type initialStateType = {
   amount: undefined | number | string;
@@ -33,7 +34,7 @@ function InputForm() {
     date: formatDate(new Date()),
     description: "",
   };
-  const { addIncomeToContract } = useContext(dataContext);
+  const { addIncomeToContract, addExpenseToContract } = useContext(dataContext);
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
   const { segment, listening, attachMicrophone, start, stop } =
@@ -95,18 +96,36 @@ function InputForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const fun = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("Hello");
-      }, 2000);
-    });
-  };
+  // const fun = () => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve("Hello");
+  //     }, 2000);
+  //   });
+  // };
   const createTransaction = async () => {
     setLoading(true);
     try {
       // sent to blockchain
-      await fun();
+      // await fun();
+      console.log(formData);
+      if (formData.type == "income") {
+        addIncomeToContract({
+          _id: uuid(),
+          _amount: Number(formData.amount),
+          _category: formData.category,
+          _date: formData.date,
+          _description: formData.description,
+        });
+      } else if (formData.type == "expense") {
+        addExpenseToContract({
+          _id: uuid(),
+          _amount: Number(formData.amount),
+          _category: formData.category,
+          _date: formData.date,
+          _description: formData.description,
+        });
+      }
     } finally {
       setLoading(false);
     }
