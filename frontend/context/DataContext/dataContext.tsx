@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
-const dataContext = createContext({});
+let params: any = {};
+const dataContext = createContext(params);
 
 export default dataContext;
