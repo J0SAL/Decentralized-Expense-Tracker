@@ -26,7 +26,7 @@ type transaction = {
   type: number;
 };
 
-var defaultYearData = {
+var initYearData = {
   January: 0,
   February: 0,
   March: 0,
@@ -106,10 +106,10 @@ function DataState({ children }: { children: React.ReactNode }) {
   const [expenses, setExpenses] = useState<{ [id: string]: number }>({});
 
   const [yearExpenses, setYearExpenses] = useState<{ [id: string]: number }>(
-    defaultYearData
+    initYearData
   );
   const [yearIncomes, setYearIncomes] = useState<{ [id: string]: number }>(
-    defaultYearData
+    initYearData
   );
 
   const [overview, setOverview] = useState<{ income: number; expense: number }>(
@@ -265,9 +265,8 @@ function DataState({ children }: { children: React.ReactNode }) {
     return "December";
   };
   const getYearPerformance = async () => {
-    let tempIncomes: { [id: string]: number } = defaultYearData;
-    let tempExpenses: { [id: string]: number } = defaultYearData;
-
+    let tempIncomes: { [id: string]: number } = { ...initYearData };
+    let tempExpenses: { [id: string]: number } = { ...initYearData };
     transactions.map((tx) => {
       let month = getMonth(tx.date.split("-")[1]);
       if (tx.type === 0) {
