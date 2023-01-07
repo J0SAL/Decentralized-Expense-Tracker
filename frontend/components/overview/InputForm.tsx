@@ -39,7 +39,7 @@ function InputForm() {
   const [loading, setLoading] = useState(false);
   const { segment, listening, attachMicrophone, start, stop } =
     useSpeechContext();
-  console.log("loading: ", loading);
+
   const getSpeech = () => {
     if (segment) {
       if (segment.intent.intent === "add_expense") {
@@ -96,20 +96,10 @@ function InputForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const fun = () => {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve("Hello");
-  //     }, 2000);
-  //   });
-  // };
   const createTransaction = async () => {
     setLoading(true);
-    console.log("local loading: ", loading);
     try {
-      // sent to blockchain
-      // await fun();
-      console.log(formData);
+      // send to blockchain
       if (formData.type == "income") {
         await addIncomeToContract({
           _id: uuid(),
@@ -134,7 +124,6 @@ function InputForm() {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLElement> | undefined) => {
     e!.preventDefault();
-    console.log(formData);
     await createTransaction();
     (e!.target as HTMLFormElement).reset();
   };
@@ -160,7 +149,7 @@ function InputForm() {
       </Card.Header>
       <Card.Body>
         <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} autoComplete="off">
           <Row>
             <Col md={6} xs={6}>
               <Form.Label htmlFor="transaction-type">
@@ -245,7 +234,9 @@ function InputForm() {
             />
           </InputGroup>
 
-          <Form.Label htmlFor="description">Description</Form.Label>
+          <Form.Label htmlFor="description">
+            Description<span className="text-danger">*</span>
+          </Form.Label>
           <FloatingLabel label="Enter Description" className="mb-3">
             <Form.Control
               id="description"
@@ -257,6 +248,7 @@ function InputForm() {
               readOnly={loading}
               plaintext={loading}
               value={formData.description}
+              required
             />
           </FloatingLabel>
           <div className="d-flex flex-row justify-content-evenly">

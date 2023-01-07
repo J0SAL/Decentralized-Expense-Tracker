@@ -66,7 +66,7 @@ const TransactionCard = ({
               marginBottom: "0px",
             }}
           >
-            10 Dec 2022
+            {new Date(transaction.date).toDateString()}
           </p>
           <h4 className="py-0 ">₹{transaction.amount}</h4>
         </div>

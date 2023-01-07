@@ -99,8 +99,7 @@ var demo_transactions = [
   },
 ];
 function DataState({ children }: { children: React.ReactNode }) {
-  const [transactions, setTransactions] =
-    useState<transaction[]>(demo_transactions);
+  const [transactions, setTransactions] = useState<transaction[]>([]);
 
   const [incomes, setIncomes] = useState<{ [id: string]: number }>({});
   const [expenses, setExpenses] = useState<{ [id: string]: number }>({});
@@ -148,8 +147,10 @@ function DataState({ children }: { children: React.ReactNode }) {
       );
       console.log("Transaction Length", transactionsLength);
       let arr = (await getTransactions()) as [];
+      console.log("raw transactions ", arr);
       let localtransactions = [] as transaction[];
       for (let i = 0; i < transactionsLength; i++) {
+        if (!arr[i][0]) continue;
         localtransactions.push({
           id: arr[i][0],
           amount: Number(arr[i][4]),
@@ -167,6 +168,7 @@ function DataState({ children }: { children: React.ReactNode }) {
 
   const { runContractFunction: addIncome } = useWeb3Contract();
   const addIncomeToContract = async (_params: transactionparam) => {
+    console.log("income params: ", _params);
     if (isWeb3Enabled) {
       let options = {
         abi: abi,
@@ -185,6 +187,8 @@ function DataState({ children }: { children: React.ReactNode }) {
 
   const { runContractFunction: addExpense } = useWeb3Contract();
   const addExpenseToContract = async (_params: transactionparam) => {
+    console.log("expense params: ", _params);
+
     if (isWeb3Enabled) {
       let options = {
         abi: abi,
@@ -251,15 +255,15 @@ function DataState({ children }: { children: React.ReactNode }) {
   };
 
   const getMonth = (monthid: string) => {
-    if (monthid === "1") return "January";
-    else if (monthid === "2") return "February";
-    else if (monthid === "3") return "March";
-    else if (monthid === "4") return "April";
-    else if (monthid === "5") return "May";
-    else if (monthid === "6") return "June";
-    else if (monthid === "7") return "July";
-    else if (monthid === "8") return "August";
-    else if (monthid === "9") return "September";
+    if (monthid === "01") return "January";
+    else if (monthid === "02") return "February";
+    else if (monthid === "03") return "March";
+    else if (monthid === "04") return "April";
+    else if (monthid === "05") return "May";
+    else if (monthid === "06") return "June";
+    else if (monthid === "07") return "July";
+    else if (monthid === "08") return "August";
+    else if (monthid === "09") return "September";
     else if (monthid === "10") return "October";
     else if (monthid === "11") return "November";
     return "December";

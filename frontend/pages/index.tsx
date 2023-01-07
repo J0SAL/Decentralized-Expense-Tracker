@@ -32,7 +32,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (isWeb3Enabled) {
-      // updateUI();
+      updateUI();
     }
   }, [isWeb3Enabled]);
 
