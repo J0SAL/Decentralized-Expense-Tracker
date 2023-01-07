@@ -76,7 +76,10 @@ const TransactionCard = ({
         className={`my-auto px-1
          ${style.deleteBtn}`}
       >
-        <BsFillTrashFill onClick={() => handleDelete(transaction.id)} />
+        <BsFillTrashFill
+          onClick={() => handleDelete(transaction.id)}
+          title="Delete Transaction"
+        />
       </Col>
     </Row>
   );
