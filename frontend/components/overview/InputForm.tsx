@@ -39,7 +39,7 @@ function InputForm() {
   const [loading, setLoading] = useState(false);
   const { segment, listening, attachMicrophone, start, stop } =
     useSpeechContext();
-
+  console.log("loading: ", loading);
   const getSpeech = () => {
     if (segment) {
       if (segment.intent.intent === "add_expense") {
@@ -105,12 +105,13 @@ function InputForm() {
   // };
   const createTransaction = async () => {
     setLoading(true);
+    console.log("local loading: ", loading);
     try {
       // sent to blockchain
       // await fun();
       console.log(formData);
       if (formData.type == "income") {
-        addIncomeToContract({
+        await addIncomeToContract({
           _id: uuid(),
           _amount: Number(formData.amount),
           _category: formData.category,
@@ -118,7 +119,7 @@ function InputForm() {
           _description: formData.description,
         });
       } else if (formData.type == "expense") {
-        addExpenseToContract({
+        await addExpenseToContract({
           _id: uuid(),
           _amount: Number(formData.amount),
           _category: formData.category,
@@ -162,7 +163,9 @@ function InputForm() {
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={6} xs={6}>
-              <Form.Label htmlFor="transaction-type">Type</Form.Label>
+              <Form.Label htmlFor="transaction-type">
+                Type<span className="text-danger">*</span>
+              </Form.Label>
               <Form.Select
                 size="sm"
                 name="type"
@@ -182,7 +185,8 @@ function InputForm() {
                 Category{" "}
                 {formData.type !== "" &&
                   formData.type !== "default" &&
-                  `(${formData.type})`}
+                  `(${formData.type})`}{" "}
+                <span className="text-danger">*</span>
               </Form.Label>
               <Form.Select
                 size="sm"
@@ -206,7 +210,9 @@ function InputForm() {
               </Form.Select>
             </Col>
           </Row>
-          <Form.Label htmlFor="transaction-amount">Amount</Form.Label>
+          <Form.Label htmlFor="transaction-amount">
+            Amount<span className="text-danger">*</span>
+          </Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>₹</InputGroup.Text>
             <Form.Control
@@ -221,7 +227,9 @@ function InputForm() {
             />
           </InputGroup>
 
-          <Form.Label htmlFor="transaction-date">Date</Form.Label>
+          <Form.Label htmlFor="transaction-date">
+            Date<span className="text-danger">*</span>
+          </Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>
               <FaCalendarAlt />
@@ -249,7 +257,6 @@ function InputForm() {
               readOnly={loading}
               plaintext={loading}
               value={formData.description}
-              required
             />
           </FloatingLabel>
           <div className="d-flex flex-row justify-content-evenly">
