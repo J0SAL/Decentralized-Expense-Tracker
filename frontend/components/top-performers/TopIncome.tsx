@@ -7,26 +7,12 @@ import { incomeColor } from "../../constants/categories";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
-  labels: ["", "", "", "", ""],
+  labels: ["No Color"],
   datasets: [
     {
-      label: "Top Transactions",
-      data: [0, 0, 0, 0, 0],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgb(90, 237, 104)",
-        "rgba(54, 162, 235, 1)",
-        "rgb(90, 237, 104)",
-        "rgba(54, 162, 235, 1)",
-        "rgb(90, 237, 104)",
-      ],
-      borderWidth: 1,
+      label: "amount",
+      data: [0],
+      backgroundColor: ["white"],
     },
   ],
 };
@@ -67,21 +53,25 @@ function TopIncome() {
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
     const top5 = Object.entries(incomes) // create Array of Arrays with [key, value]
-      .sort(([, a], [, b]) => b - a) // sort by value, descending (b-a)
+      .sort(([, a], [, b]) => (b as number) - (a as number)) // sort by value, descending (b-a)
       .slice(0, 5);
 
-    console.log(top5);
-    data.labels = top5.map((e) => e[0]);
-    data.datasets[0].data = top5.map((e) => e[1] as number);
-    data.datasets[0].backgroundColor = top5.map(
-      (e) => incomeColor[e[0] as string]
-    );
-
-    setChartData(data);
+    setChartData({
+      labels: top5.map((e) => e[0]),
+      datasets: [
+        {
+          label: "Amount",
+          data: top5.map((e) => e[1] as number),
+          backgroundColor: top5.map(
+            (e) => incomeColor[e[0] as keyof typeof incomeColor]
+          ),
+        },
+      ],
+    });
   }, [incomes]);
   return (
     <div className="text-center">
-      <h4>Top 5 Income Sources</h4>
+      <h4>Top Income Sources</h4>
       <Doughnut
         data={chartData}
         plugins={[dougnnutText]}

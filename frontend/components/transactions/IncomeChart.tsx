@@ -19,12 +19,18 @@ function IncomeChart() {
   const { overview, incomes } = useContext(dataContext);
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
-    data.labels = Object.keys(incomes);
-    data.datasets[0].data = Object.values(incomes);
-    data.datasets[0].backgroundColor = Object.keys(incomes).map(
-      (cat: string) => incomeColor[cat]
-    );
-    setChartData(data);
+    setChartData({
+      labels: Object.keys(incomes),
+      datasets: [
+        {
+          label: "Amount",
+          data: Object.values(incomes),
+          backgroundColor: Object.keys(incomes).map(
+            (cat: string) => incomeColor[cat as keyof typeof incomeColor]
+          ),
+        },
+      ],
+    });
   }, [incomes]);
 
   return (

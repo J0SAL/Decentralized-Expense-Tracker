@@ -22,21 +22,26 @@ function TopExpense() {
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
     const top5 = Object.entries(expenses) // create Array of Arrays with [key, value]
-      .sort(([, a], [, b]) => b - a) // sort by value, descending (b-a)
+      .sort(([, a], [, b]) => (b as number) - (a as number)) // sort by value, descending (b-a)
       .slice(0, 5);
 
-    console.log(top5);
-    data.labels = top5.map((e) => e[0]);
-    data.datasets[0].data = top5.map((e) => e[1] as number);
-    data.datasets[0].backgroundColor = top5.map(
-      (e) => expenseColor[e[0] as string]
-    );
-
-    setChartData(data);
+    setChartData({
+      labels: top5.map((e) => e[0]),
+      datasets: [
+        {
+          label: "Amount",
+          data: top5.map((e) => e[1] as number),
+          backgroundColor: top5.map(
+            (e) => expenseColor[e[0] as keyof typeof expenseColor]
+          ),
+        },
+      ],
+    });
   }, [expenses]);
+
   return (
     <div className="text-center">
-      <h4>Top 5 Expense Sources</h4>
+      <h4>Top Expense Sources</h4>
       <Doughnut
         data={chartData}
         plugins={[dougnnutText]}

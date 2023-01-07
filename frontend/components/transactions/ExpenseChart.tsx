@@ -21,19 +21,25 @@ function ExpenseChart() {
   const { overview, expenses } = useContext(dataContext);
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
-    data.labels = Object.keys(expenses);
-    data.datasets[0].data = Object.values(expenses);
-    data.datasets[0].backgroundColor = Object.keys(expenses).map(
-      (cat: string) => expenseColor[cat]
-    );
-    setChartData(data);
+    setChartData({
+      labels: Object.keys(expenses),
+      datasets: [
+        {
+          label: "Amount",
+          data: Object.values(expenses),
+          backgroundColor: Object.keys(expenses).map(
+            (cat: string) => expenseColor[cat as keyof typeof expenseColor]
+          ),
+        },
+      ],
+    });
   }, [expenses]);
   return (
     <div>
       <h4 className="d-flex justify-content-center">
         Total Expenses: ₹ {overview.expense}
       </h4>
-      <Pie data={data} />
+      <Pie data={chartData} />
     </div>
   );
 }

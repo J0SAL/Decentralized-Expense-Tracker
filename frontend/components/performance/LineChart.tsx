@@ -66,9 +66,20 @@ function LineChart() {
   const [chartData, setChartData] = useState(data);
 
   useEffect(() => {
-    data.datasets[0].data = Object.values(yearIncomes);
-    data.datasets[1].data = Object.values(yearExpenses);
-    setChartData(data);
+    let tempdataset = [...chartData.datasets];
+    tempdataset[0] = {
+      ...tempdataset[0],
+      ["data"]: yearIncomes,
+    };
+    tempdataset[1] = {
+      ...tempdataset[1],
+      ["data"]: yearExpenses,
+    };
+
+    setChartData({
+      ...chartData,
+      datasets: tempdataset,
+    });
   }, [yearExpenses, yearIncomes]);
   return (
     <Line

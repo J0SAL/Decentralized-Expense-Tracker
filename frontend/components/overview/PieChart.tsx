@@ -9,7 +9,7 @@ export const data = {
   labels: ["Income", "Expense"],
   datasets: [
     {
-      label: "# of Votes",
+      label: "Amount",
       data: [0, 0],
       backgroundColor: ["#10ac6e", "#ee8d68"],
       borderColor: ["#0bc77e", "#ffae8a"],
@@ -22,8 +22,16 @@ export function PieChart() {
   const [piedata, setPieData] = useState(data);
   const { overview } = useContext(dataContext);
   useEffect(() => {
-    data.datasets[0].data = [overview.income, overview.expense];
-    setPieData(data);
+    let tempdataset = [...piedata.datasets];
+    tempdataset[0] = {
+      ...tempdataset[0],
+      ["data"]: [overview.income, overview.expense],
+    };
+
+    setPieData({
+      ...piedata,
+      datasets: tempdataset,
+    });
   }, [overview]);
 
   return (
