@@ -10,9 +10,9 @@ export const data = {
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19],
-      backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)"],
-      borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"],
+      data: [0, 0],
+      backgroundColor: ["#10ac6e", "#ee8d68"],
+      borderColor: ["#0bc77e", "#ffae8a"],
       borderWidth: 1,
     },
   ],
