@@ -9,7 +9,12 @@ function Footer() {
         color: "white",
       }}
     >
-      <h6>Made by Joy Almeida</h6>
+      <h6>
+        Made by{" "}
+        <a href="https://bio.link/j0sal" target="_blank" rel="noreferrer">
+          Joy Almeida
+        </a>
+      </h6>
     </div>
   );
 }
