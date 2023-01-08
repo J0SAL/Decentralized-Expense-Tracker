@@ -39,7 +39,16 @@ export function PieChart() {
       <h4 className="d-flex justify-content-center">
         You Balance: ₹ {overview.income - overview.expense}
       </h4>
-      <Pie data={piedata} />
+      {overview.income - overview.expense !== 0 ? (
+        <Pie data={piedata} />
+      ) : (
+        <img
+          src="/images/empty.svg"
+          alt="no data"
+          width={"80%"}
+          height={"80%"}
+        />
+      )}
     </div>
   );
 }

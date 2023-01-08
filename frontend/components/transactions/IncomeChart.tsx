@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import dataContext from "../../context/DataContext/dataContext";
 import { incomeColor } from "../../constants/categories";
+import Image from "next/image";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
@@ -38,7 +39,16 @@ function IncomeChart() {
       <h4 className="d-flex justify-content-center">
         Total Income: ₹ {overview.income}
       </h4>
-      <Pie data={chartData} />
+      {overview.income === 0 ? (
+        <img
+          src="/images/no_transactions.svg"
+          alt="no data"
+          width={"80%"}
+          height={"80%"}
+        />
+      ) : (
+        <Pie data={chartData} />
+      )}
     </div>
   );
 }

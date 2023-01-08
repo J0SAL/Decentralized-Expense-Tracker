@@ -11,7 +11,7 @@ import dataContext from "../context/DataContext/dataContext";
 export default function HomePage() {
   const [showButton, setShowButton] = useState(false);
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
-  const { updateUI } = useContext(dataContext);
+  const { updateUI, transactions } = useContext(dataContext);
 
   const handleScroll = () => {
     if (window.scrollY > 300) {
@@ -41,9 +41,13 @@ export default function HomePage() {
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
       <Container className="mt-5 py-3 bg-white">
         <Overview />
-        <Transactions />
-        <PerformanceGraph />
-        <Performers />
+        {transactions.length > 0 && (
+          <div>
+            <Transactions />
+            <PerformanceGraph />
+            <Performers />
+          </div>
+        )}
       </Container>
       <button
         className="btn"

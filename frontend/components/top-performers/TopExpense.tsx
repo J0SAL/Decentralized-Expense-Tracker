@@ -19,6 +19,7 @@ export const data = {
 
 function TopExpense() {
   const { expenses } = useContext(dataContext);
+  console.log("jj", expenses, expenses.length);
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
     const top5 = Object.entries(expenses) // create Array of Arrays with [key, value]
@@ -42,11 +43,21 @@ function TopExpense() {
   return (
     <div className="text-center">
       <h4>Top Expense Sources</h4>
-      <Doughnut
-        data={chartData}
-        plugins={[dougnnutText]}
-        options={{ cutout: "70%" }}
-      />
+
+      {Object.keys(expenses).length !== 0 ? (
+        <Doughnut
+          data={chartData}
+          plugins={[dougnnutText]}
+          options={{ cutout: "70%" }}
+        />
+      ) : (
+        <img
+          src="/images/no_transactions.svg"
+          alt="no data"
+          width={"80%"}
+          height={"80%"}
+        />
+      )}
     </div>
   );
 }

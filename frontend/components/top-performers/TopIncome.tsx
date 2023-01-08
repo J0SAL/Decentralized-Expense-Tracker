@@ -72,11 +72,21 @@ function TopIncome() {
   return (
     <div className="text-center">
       <h4>Top Income Sources</h4>
-      <Doughnut
-        data={chartData}
-        plugins={[dougnnutText]}
-        options={{ cutout: "70%" }}
-      />
+
+      {Object.keys(incomes).length !== 0 ? (
+        <Doughnut
+          data={chartData}
+          plugins={[dougnnutText]}
+          options={{ cutout: "70%" }}
+        />
+      ) : (
+        <img
+          src="/images/no_transactions.svg"
+          alt="no data"
+          width={"80%"}
+          height={"80%"}
+        />
+      )}
     </div>
   );
 }

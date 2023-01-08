@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import InputForm from "./InputForm";
 import { PieChart } from "./PieChart";
@@ -9,14 +9,17 @@ import {
 } from "@speechly/react-ui";
 function Overview() {
   const { segment } = useSpeechContext();
+  const [hint, setHint] = useState<boolean>(false);
   return (
     <Container style={{ minHeight: "100vh" }}>
       <h3 id="home" className="d-flex justify-content-center pb-2">
         Overview
       </h3>
-      <p className="text-center">
-        <i>Try Saying, "Add Income for ₹100 in Category Salary for Monday"</i>
-      </p>
+      {hint && (
+        <p className="text-center">
+          <i>Try Saying, "Add Income for ₹100 in Category Salary for Monday"</i>
+        </p>
+      )}
       <p className="text-center">
         {segment && segment.words.map((w) => w.value).join(" ")}
       </p>
@@ -41,7 +44,9 @@ function Overview() {
         </Col>
       </Row>
       <PushToTalkButtonContainer>
-        <PushToTalkButton />
+        <span onClick={() => setHint(true)}>
+          <PushToTalkButton />
+        </span>
       </PushToTalkButtonContainer>
     </Container>
   );

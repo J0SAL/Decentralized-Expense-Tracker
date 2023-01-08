@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import dataContext from "../../context/DataContext/dataContext";
 import { expenseColor } from "../../constants/categories";
+import Image from "next/image";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,7 +40,16 @@ function ExpenseChart() {
       <h4 className="d-flex justify-content-center">
         Total Expenses: ₹ {overview.expense}
       </h4>
-      <Pie data={chartData} />
+      {overview.expense === 0 ? (
+        <img
+          src="/images/no_transactions.svg"
+          alt="no data"
+          width={"80%"}
+          height={"80%"}
+        />
+      ) : (
+        <Pie data={chartData} />
+      )}
     </div>
   );
 }
