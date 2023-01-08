@@ -8,8 +8,7 @@ import {
   InputGroup,
   FloatingLabel,
 } from "react-bootstrap";
-import { FaCalendarAlt, FaAssistiveListeningSystems } from "react-icons/fa";
-import { TfiMicrophone } from "react-icons/tfi";
+import { FaCalendarAlt } from "react-icons/fa";
 import { useSpeechContext } from "@speechly/react-client";
 import formatDate from "../../utils/formatDate";
 import {
@@ -28,7 +27,7 @@ type initialStateType = {
 };
 function InputForm() {
   const initialState: initialStateType = {
-    amount: undefined,
+    amount: 0,
     category: "default",
     type: "default",
     date: formatDate(new Date()),
@@ -37,8 +36,7 @@ function InputForm() {
   const { addIncomeToContract, addExpenseToContract } = useContext(dataContext);
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
-  const { segment, listening, attachMicrophone, start, stop } =
-    useSpeechContext();
+  const { segment } = useSpeechContext();
 
   const getSpeech = () => {
     if (segment) {
@@ -46,13 +44,6 @@ function InputForm() {
         setFormData({ ...formData, type: "expense" });
       } else if (segment.intent.intent === "add_income") {
         setFormData({ ...formData, type: "income" });
-      } else if (
-        segment.isFinal &&
-        segment.intent.intent === "create_transaction"
-      ) {
-        return createTransaction();
-      } else if (segment.intent.intent === "cancelTransaction") {
-        setFormData(initialState);
       }
 
       segment.entities.forEach((e) => {
@@ -75,15 +66,7 @@ function InputForm() {
             break;
         }
       });
-      if (
-        segment.isFinal &&
-        formData.amount &&
-        formData.type &&
-        formData.date &&
-        formData.category
-      ) {
-        createTransaction();
-      }
+      formData.description = "Added by Speechly";
     }
   };
   useEffect(() => {
@@ -119,17 +102,18 @@ function InputForm() {
       }
     } finally {
       setLoading(false);
+      setFormData(initialState);
     }
-    setFormData(initialState);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLElement> | undefined) => {
     e!.preventDefault();
     await createTransaction();
+
     (e!.target as HTMLFormElement).reset();
   };
 
   const canSubmit: boolean =
-    formData.amount != undefined &&
+    formData.amount != 0 &&
     formData.category.length > 0 &&
     formData.category !== "default" &&
     formData.type.length > 0 &&
@@ -148,7 +132,6 @@ function InputForm() {
         Add Transaction
       </Card.Header>
       <Card.Body>
-        <p>{segment && segment.words.map((w) => w.value).join(" ")}</p>
         <Form onSubmit={handleSubmit} autoComplete="off">
           <Row>
             <Col md={6} xs={6}>
@@ -258,13 +241,6 @@ function InputForm() {
               ) : (
                 <span className="spinner-border" />
               )}
-            </Button>
-
-            <Button variant="danger" onClick={attachMicrophone}>
-              <TfiMicrophone />
-            </Button>
-            <Button variant="warning" onPointerDown={start} onPointerUp={stop}>
-              {listening ? <FaAssistiveListeningSystems /> : <TfiMicrophone />}
             </Button>
           </div>
         </Form>
