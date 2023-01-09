@@ -9,12 +9,21 @@ function Footer() {
         color: "white",
       }}
     >
-      <h6>
-        Made by{" "}
-        <a href="https://bio.link/j0sal" target="_blank" rel="noreferrer">
-          Joy Almeida
+      <p>
+        {" "}
+        Leave a ⭐ on{" "}
+        <a
+          href="https://github.com/J0SAL/Decentralized-Expense-Tracker"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Github
         </a>
-      </h6>
+        <span className="px-2">, made by</span>
+        <a href="https://bio.link/j0sal" target="_blank" rel="noreferrer">
+          @Joy Almeida
+        </a>{" "}
+      </p>
     </div>
   );
 }

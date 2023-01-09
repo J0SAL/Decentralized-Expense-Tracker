@@ -6,7 +6,7 @@ import TransactionList from "./TransactionList";
 
 function Transactions() {
   return (
-    <Container style={{ minHeight: "100vh" }}>
+    <Container style={{ minHeight: "70vh" }}>
       <h3 id="transactions" className="d-flex justify-content-center my-3">
         Your Transactions
       </h3>
