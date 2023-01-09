@@ -37,7 +37,18 @@ function InputForm() {
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
   const { segment } = useSpeechContext();
+  const [dateError, setDateError] = useState("");
 
+  useEffect(() => {
+    if (formData.date == "") return;
+    let today = new Date();
+    let inputDate = new Date(formData.date);
+    if (inputDate > today) {
+      setDateError("Date Cannot be after current day");
+    } else {
+      setDateError("");
+    }
+  }, [formData.date]);
   const getSpeech = () => {
     if (segment) {
       if (segment.intent.intent === "add_expense") {
@@ -119,6 +130,7 @@ function InputForm() {
     formData.type.length > 0 &&
     formData.type !== "default" &&
     formData.date.length > 0 &&
+    dateError == "" &&
     formData.description.length > 0 &&
     loading === false;
 
@@ -201,6 +213,11 @@ function InputForm() {
 
           <Form.Label htmlFor="transaction-date">
             Date<span className="text-danger">*</span>
+            {dateError != "" ? (
+              <i className="text-danger font-italic">{dateError}</i>
+            ) : (
+              ""
+            )}
           </Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>
