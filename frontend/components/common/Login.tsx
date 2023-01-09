@@ -16,7 +16,12 @@ function Login() {
           gap: "20px",
         }}
       >
-        Connect to Wallet First
+        <img
+          src="/images/welcome.svg"
+          alt="no data"
+          width={"100vh"}
+          height={"100vh"}
+        />
         <ConnectButton moralisAuth={false} />
       </div>
     </div>
