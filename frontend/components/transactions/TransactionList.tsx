@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import styles from "../../styles/Scrollbar.module.css";
 import dataContext from "../../context/DataContext/dataContext";
 import TransactionCard from "./TransactionCard";
+import DownloadTransactions from "./DownloadTransactions";
 
 export type Transaction = {
   id: string;
@@ -22,6 +23,7 @@ function TransactionList() {
   };
   return (
     <div className="my-5 my-md-0">
+      <DownloadTransactions transactions={transactions} />
       <div
         style={{ maxHeight: "68vh", overflowY: "auto", overflowX: "hidden" }}
         className={styles.scrollbar}
