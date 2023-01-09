@@ -19,7 +19,6 @@ export const data = {
 
 function TopExpense() {
   const { expenses } = useContext(dataContext);
-  console.log("jj", expenses, expenses.length);
   const [chartData, setChartData] = useState(data);
   useEffect(() => {
     const top5 = Object.entries(expenses) // create Array of Arrays with [key, value]
