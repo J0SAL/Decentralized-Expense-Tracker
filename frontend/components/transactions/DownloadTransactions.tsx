@@ -13,11 +13,7 @@ function DownloadTransactions({
     exportExcel(transactions);
   };
   return (
-    <Button
-      onClick={handleClick}
-      className="btn-sm"
-      style={{ backgroundColor: "#64b0e3", border: "#64b0e3" }}
-    >
+    <Button onClick={handleClick} className="btn-sm btn-primary">
       Download <BsDownload />
     </Button>
   );

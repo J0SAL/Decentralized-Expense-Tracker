@@ -4,6 +4,7 @@ import { contractAddresses, abi } from "../../constants";
 import { useWeb3Contract, useMoralis } from "react-moralis";
 import { notifyType, useNotification } from "web3uikit";
 import { ContractTransaction } from "ethers";
+import { getMonth } from "../../utils/formatDate";
 
 interface contractAddressesInterface {
   [key: string]: string[];
@@ -40,64 +41,7 @@ var initYearData = {
   November: 0,
   December: 0,
 };
-var demo_transactions = [
-  {
-    amount: 100,
-    category: "Salary",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd12",
-    type: 0,
-  },
-  {
-    amount: 100,
-    category: "Clothes",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd13",
-    type: 1,
-  },
-  {
-    amount: 100,
-    category: "Business",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd14",
-    type: 0,
-  },
-  {
-    amount: 100,
-    category: "Gifts",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd15",
-    type: 0,
-  },
-  {
-    amount: 100,
-    category: "Lottery",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd16",
-    type: 0,
-  },
-  {
-    amount: 100,
-    category: "Car",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd17",
-    type: 1,
-  },
-  {
-    amount: 50,
-    category: "Food",
-    date: "2021-09-01",
-    description: "Salary",
-    id: "0x5B38Da6a701c568545dCfcB03FcB875f56bedd18",
-    type: 1,
-  },
-];
+
 function DataState({ children }: { children: React.ReactNode }) {
   const [transactions, setTransactions] = useState<transaction[]>([]);
 
@@ -254,20 +198,6 @@ function DataState({ children }: { children: React.ReactNode }) {
     setExpenses(t);
   };
 
-  const getMonth = (monthid: string) => {
-    if (monthid === "01") return "January";
-    else if (monthid === "02") return "February";
-    else if (monthid === "03") return "March";
-    else if (monthid === "04") return "April";
-    else if (monthid === "05") return "May";
-    else if (monthid === "06") return "June";
-    else if (monthid === "07") return "July";
-    else if (monthid === "08") return "August";
-    else if (monthid === "09") return "September";
-    else if (monthid === "10") return "October";
-    else if (monthid === "11") return "November";
-    return "December";
-  };
   const getYearPerformance = async () => {
     let tempIncomes: { [id: string]: number } = { ...initYearData };
     let tempExpenses: { [id: string]: number } = { ...initYearData };

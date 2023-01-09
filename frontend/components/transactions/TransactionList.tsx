@@ -23,7 +23,9 @@ function TransactionList() {
   };
   return (
     <div className="my-5 my-md-0">
-      <DownloadTransactions transactions={transactions} />
+      <div className="text-end">
+        <DownloadTransactions transactions={transactions} />
+      </div>
       <div
         style={{ maxHeight: "68vh", overflowY: "auto", overflowX: "hidden" }}
         className={styles.scrollbar}

@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import { useSpeechContext } from "@speechly/react-client";
-import formatDate from "../../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 import {
   incomeCategories,
   expenseCategories,

@@ -4,6 +4,7 @@ import style from "../../styles/Main.module.css";
 import { BiMoney } from "react-icons/bi";
 import { Col, Row } from "react-bootstrap";
 import { Transaction } from "./TransactionList";
+import { dateString } from "../../utils/formatDate";
 
 const TransactionCard = ({
   transaction,
@@ -66,7 +67,7 @@ const TransactionCard = ({
               marginBottom: "0px",
             }}
           >
-            {new Date(transaction.date).toDateString()}
+            {dateString(transaction.date)}
           </p>
           <h4 className="py-0 ">₹{transaction.amount}</h4>
         </div>
