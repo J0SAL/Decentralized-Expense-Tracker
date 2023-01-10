@@ -40,25 +40,25 @@
 
 ## :snowflake: ScreenShots
 
-1. Overview
+1. ### Overview
 
 - Input form
 - Current Balance and Transaction Overview
 - <img src="https://user-images.githubusercontent.com/52382282/211576143-5e7e113e-ab83-48c2-bd28-59e0cee0c991.png" alt="drawing" width="800" height="400"/>
 
-2. Transactions
+2. ### Transactions
 
 - List of Transaction sorted by date
 - Download Transaction Option
 - Graphical Analysis of Incomes & Expenses
 - <img src="https://user-images.githubusercontent.com/52382282/211576420-8df471e6-788b-4517-a498-f18864770eee.png" alt="drawing" width="800" height="400"/>
 
-3. Performance
+3. ### Performance
 
 - Line Graph for analysing transactions throught the year
 - <img src="https://user-images.githubusercontent.com/52382282/211577394-19701031-13af-481d-987f-e1762ada8e1d.png" alt="drawing" width="800" height="400"/>
 
-4. Diversification
+4. ### Diversification
 
 - Graphical Analysis of Top Incomes and Expenses
 - <img src="https://user-images.githubusercontent.com/52382282/211577792-98892daf-58a4-4cba-9531-bcb043b8d6c6.png" alt="drawing" width="800" height="400"/>
