@@ -20,9 +20,7 @@
 
 - **Website** https://jarvis.on.fleek.co/
 
-- ### Video
-
-- <a href="https://youtu.be/2-cFY_AJvGU"> <img src="https://user-images.githubusercontent.com/52382282/211534539-e39ec20f-d919-4765-9061-713c12ea33fd.png" alt="Demo Video"  width='600' height='400'/> </a>
+- **Video** https://youtu.be/2-cFY_AJvGU
 
 ## :hammer_and_wrench: Technology Stack
 
@@ -118,8 +116,8 @@ ETHERSCAN_API_KEY=<YOUR_KEY> # (https://goerli.etherscan.io/)
 
 UPDATE_FRONT_END=true # (true: dynamically update ABI and contract address frontend)
 ```
-
 </details>
+  
 ## :cowboy_hat_face: Contributors
 
 <a href="https://github.com/J0SAL/Decentralized-Expense-Tracker/graphs/contributors"> 
