@@ -1,10 +1,20 @@
 <div align="center"> <a href="https://standnote.netlify.app/"> <img align="center" alt="standnote" src="https://user-images.githubusercontent.com/52382282/211530770-9bb2278a-1c47-4351-9e86-306a02aa00e9.png" height='95' width='380'> </a> </div>
 
-## Tracking Expenses Securely!
+## :milky_way: Tracking Expenses Securely!
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <br>
 <b>Jarvis</b> is A web application backed by the power of <b>Decentralization!</b> The motive of the application is to assist the user in managing and maintaining his/her transactions. A transaction can be either in form of income or expense. This application provides visualizations in form of graphs giving users the ability to track by visualizing his/her expenses over a period of time. The application provides the functionality to export the transactions in an excel file. The user can also add transactions through voice commands with a simple click of a button. In addition all data that the user generates is stored on the blockchain in a decentralized manner powered by Ethereum. which prevents the risks of illegal tampering with the data.
 <br>
+
+## :snowflake: Features:
+
+- Data Security
+- Graphical Visualization
+- Top Diversifications
+- Exporting Data to Excel
+- Voice Recognition
 
 ## :snowflake: Demo
 
@@ -12,7 +22,7 @@
 
 - ### Video
 
-- <a href="https://www.youtube.com/watch?v="> <img src="https://user-images.githubusercontent.com/52382282/211534539-e39ec20f-d919-4765-9061-713c12ea33fd.png" alt="Demo Video" height='250' width='450'/> </a>
+- <a href="https://youtu.be/2-cFY_AJvGU"> <img src="https://user-images.githubusercontent.com/52382282/211534539-e39ec20f-d919-4765-9061-713c12ea33fd.png" alt="Demo Video"  width='600' height='400'/> </a>
 
 ## :hammer_and_wrench: Technology Stack
 
@@ -30,12 +40,30 @@
   [![Goerli Etherscan](https://img.shields.io/badge/Etherscan.io-darkblue?style=for-the-badge)](https://goerli.etherscan.io/)&nbsp;
   [![Alchemy](https://img.shields.io/badge/Alchemy-blue?style=for-the-badge)](https://dashboard.alchemy.com/)&nbsp;
 
-## :snowflake: Features:
+## :snowflake: ScreenShots
 
-- Security
-- Graphical Visualization
-- Top Diversifications
-- Exporting Data to Excel
+1. Overview
+
+- Input form
+- Current Balance and Transaction Overview
+- <img src="https://user-images.githubusercontent.com/52382282/211576143-5e7e113e-ab83-48c2-bd28-59e0cee0c991.png" alt="drawing" width="800" height="400"/>
+
+2. Transactions
+
+- List of Transaction sorted by date
+- Download Transaction Option
+- Graphical Analysis of Incomes & Expenses
+- <img src="https://user-images.githubusercontent.com/52382282/211576420-8df471e6-788b-4517-a498-f18864770eee.png" alt="drawing" width="800" height="400"/>
+
+3. Performance
+
+- Line Graph for analysing transactions throught the year
+- <img src="https://user-images.githubusercontent.com/52382282/211577394-19701031-13af-481d-987f-e1762ada8e1d.png" alt="drawing" width="800" height="400"/>
+
+4. Diversification
+
+- Graphical Analysis of Top Incomes and Expenses
+- <img src="https://user-images.githubusercontent.com/52382282/211577792-98892daf-58a4-4cba-9531-bcb043b8d6c6.png" alt="drawing" width="800" height="400"/>
 
 ## :runner: Local setup - Frontend
 
@@ -76,6 +104,22 @@ yarn hardhat node
 yarn hardhat deploy --network localhost
 ```
 
+To run this project, you will need to add the following environment variables to your .env file inside your backend folder.
+
+<details>
+ <summary><strong>Environment Varaibles </strong></summary>
+
+```bash
+GOERLI_RPC_URL=<ALCHEMY_URL> # (https://www.alchemy.com/)
+
+PRIVATE_KEY=<YOUR_ACCOUNT_PRIVATE_KEY> # (https://www.alchemy.com/)
+
+ETHERSCAN_API_KEY=<YOUR_KEY> # (https://goerli.etherscan.io/)
+
+UPDATE_FRONT_END=true # (true: dynamically update ABI and contract address frontend)
+```
+
+</details>
 ## :cowboy_hat_face: Contributors
 
 <a href="https://github.com/J0SAL/Decentralized-Expense-Tracker/graphs/contributors"> 
