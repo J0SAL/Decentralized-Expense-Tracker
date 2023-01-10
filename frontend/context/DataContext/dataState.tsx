@@ -107,7 +107,7 @@ function DataState({ children }: { children: React.ReactNode }) {
       }
       console.log("Transactions", localtransactions);
       localtransactions.sort(
-        (a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf()
+        (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
       );
       setTransactions(localtransactions);
     }
