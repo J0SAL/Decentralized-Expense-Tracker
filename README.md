@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <br>
-<b>Jarvis</b> is A web application backed by the power of <b>Decentralization!</b> The motive of the application is to assist the user in managing and maintaining his/her transactions. A transaction can be either in form of income or expense. This application provides visualizations in form of graphs giving users the ability to track by visualizing his/her expenses over a period of time. The application provides the functionality to export the transactions in an excel file. The user can also add transactions through voice commands with a simple click of a button. In addition all data that the user generates is stored on the blockchain in a decentralized manner powered by Ethereum. which prevents the risks of illegal tampering with the data.
+<b>Jarvis</b> is A web application backed by the power of <b>Decentralization!</b> The motive of the application is to assist the user in managing and maintaining his/her transactions. A transaction can be either in form of income or expense. This application provides visualizations in form of graphs giving users the ability to track by visualizing his/her expenses over a period of time. The application provides the functionality to export the transactions in an excel file. The user can also add transactions through voice commands with a simple click of a button. In addition all data that the user generates is stored on the blockchain in a decentralized manner powered by Ethereum, which prevents the risks of illegal tampering with the data.
 <br>
 
 ## :snowflake: Features:
@@ -40,25 +40,25 @@
 
 ## :snowflake: ScreenShots
 
-1. Overview
+1. ### Overview
 
 - Input form
 - Current Balance and Transaction Overview
 - <img src="https://user-images.githubusercontent.com/52382282/211576143-5e7e113e-ab83-48c2-bd28-59e0cee0c991.png" alt="drawing" width="800" height="400"/>
 
-2. Transactions
+2. ### Transactions
 
 - List of Transaction sorted by date
 - Download Transaction Option
 - Graphical Analysis of Incomes & Expenses
 - <img src="https://user-images.githubusercontent.com/52382282/211576420-8df471e6-788b-4517-a498-f18864770eee.png" alt="drawing" width="800" height="400"/>
 
-3. Performance
+3. ### Performance
 
 - Line Graph for analysing transactions throught the year
 - <img src="https://user-images.githubusercontent.com/52382282/211577394-19701031-13af-481d-987f-e1762ada8e1d.png" alt="drawing" width="800" height="400"/>
 
-4. Diversification
+4. ### Diversification
 
 - Graphical Analysis of Top Incomes and Expenses
 - <img src="https://user-images.githubusercontent.com/52382282/211577792-98892daf-58a4-4cba-9531-bcb043b8d6c6.png" alt="drawing" width="800" height="400"/>
