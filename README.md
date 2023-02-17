@@ -18,7 +18,7 @@
 
 ## :snowflake: Demo
 
-- **Website** https://jarvis.on.fleek.co/
+- **Website** https://jarvis.on.fleek.co/ or https://your-jarvis.vercel.app/
 
 - **Video** https://youtu.be/2-cFY_AJvGU
 
