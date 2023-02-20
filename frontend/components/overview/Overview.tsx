@@ -4,6 +4,7 @@ import InputForm from "./InputForm";
 import { PieChart } from "./PieChart";
 import { useSpeechContext } from "@speechly/react-client";
 import {
+  BigTranscript,
   PushToTalkButton,
   PushToTalkButtonContainer,
 } from "@speechly/react-ui";
@@ -20,9 +21,9 @@ function Overview() {
           <i>Try Saying, "Add Income for ₹100 in Category Salary for Monday"</i>
         </p>
       )}
-      <p className="text-center">
+      {/* <p className="text-center">
         {segment && segment.words.map((w) => w.value).join(" ")}
-      </p>
+      </p> */}
       <Row gx={10}>
         <Col
           md={6}
@@ -44,6 +45,7 @@ function Overview() {
         </Col>
       </Row>
       <PushToTalkButtonContainer>
+        <BigTranscript placement="top" />
         <span onClick={() => setHint(true)}>
           <PushToTalkButton />
         </span>

@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <React.StrictMode>
       <MoralisProvider initializeOnMount={false}>
         <NotificationProvider>
-          <SpeechProvider appId="7aa066e8-41d5-45c7-9f9b-0cfa0fef85ef">
+          <SpeechProvider appId="5a09c0bf-4fb4-4af4-bfe8-c677f9f58d5d">
             <DataState>
               <React.Fragment>
                 <Head>
