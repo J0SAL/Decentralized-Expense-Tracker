@@ -1,6 +1,6 @@
-// @ts-expect-error
+// @ts-ignore
 import XlsxPopulate from "xlsx-populate";
-// @ts-expect-error
+// @ts-ignore
 import { saveAs } from "file-saver";
 import { Transaction } from "../components/transactions/TransactionList";
 import { sentenceCase } from "./common";

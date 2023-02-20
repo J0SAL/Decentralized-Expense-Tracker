@@ -112,7 +112,7 @@ function DataState({ children }: { children: React.ReactNode }) {
       setTransactions(localtransactions);
     }
   };
-  // @ts-expect-error
+  // @ts-ignore
   const { runContractFunction: addIncome } = useWeb3Contract();
   const addIncomeToContract = async (_params: transactionparam) => {
     console.log("income params: ", _params);
@@ -131,7 +131,7 @@ function DataState({ children }: { children: React.ReactNode }) {
       updateUI();
     }
   };
-  // @ts-expect-error
+  // @ts-ignore
   const { runContractFunction: addExpense } = useWeb3Contract();
   const addExpenseToContract = async (_params: transactionparam) => {
     console.log("expense params: ", _params);
@@ -151,7 +151,7 @@ function DataState({ children }: { children: React.ReactNode }) {
       updateUI();
     }
   };
-  // @ts-expect-error
+  // @ts-ignore
   const { runContractFunction: deleteTransaction } = useWeb3Contract();
   const deleteContractTransaction = async (_params: { id: string }) => {
     if (isWeb3Enabled) {
