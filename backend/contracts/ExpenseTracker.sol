@@ -82,10 +82,12 @@ contract ExpenseTracker {
         uint n = total - deleted;
 
         Transaction[] memory res = new Transaction[](n);
-        for (uint i = 0; i < n; i++) {
+        uint j = 0;
+        for (uint i = 0; i < total; i++) {
             Transaction memory t = transactions[msg.sender][ids[i]];
             if (t.is_deleted == false) {
-                res[i] = t;
+                res[j] = t;
+                j++;
             }
         }
         return res;
