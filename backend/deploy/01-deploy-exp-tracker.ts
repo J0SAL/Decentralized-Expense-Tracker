@@ -18,7 +18,7 @@ const deployExpenseTracker: DeployFunction = async function (
         from: deployer,
         args: [], // if constructor has arguments
         log: true,
-        waitConfirmations: networkConfig[chainId].blockConfirmations || 0
+        // waitConfirmations: networkConfig[chainId].blockConfirmations || 0
     })
     console.log(`ExpenseTracker deployed at ${expenseTracker.address}`);
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
