@@ -22,6 +22,10 @@ export const networkConfig: networkConfigInfo = {
         name: "goerli",
         blockConfirmations: 1,
     },
+    80001: {
+        name: "mumbai",
+        blockConfirmations: 1,
+    },
 }
 
 export const frontEndContractsFile = "../frontend/constants/contractAddresses.json"

@@ -8,6 +8,7 @@ import "@typechain/hardhat";
 import "hardhat-deploy";
 
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
+const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 
@@ -26,6 +27,12 @@ module.exports = {
           saveDeployments: true,
           chainId: 5,
       },
+      mumbai: {
+        url: GOERLI_RPC_URL,
+        accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+        saveDeployments: true,
+        chainId: 80001,
+    },
     },
 
     solidity: {
