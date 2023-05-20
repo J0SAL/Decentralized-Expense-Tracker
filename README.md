@@ -76,7 +76,7 @@ $ cd frontend
 # Install Dependencies
 $ npm install
 # Run Application
-$ npm dev
+$ npm run dev
 # The server will start at <http://localhost:3000>
 ```
 
