@@ -75,23 +75,29 @@ contract ExpenseTracker {
     }
 
     function getUserTransactions() public view returns (Transaction[] memory) {
-        string[] memory ids = tracker[msg.sender].transactions;
-
         uint total = tracker[msg.sender].total;
         uint deleted = tracker[msg.sender].deleted;
         uint n = total - deleted;
 
         Transaction[] memory res = new Transaction[](n);
-        for (uint i = 0; i < n; i++) {
-            Transaction memory t = transactions[msg.sender][ids[i]];
-            if (t.is_deleted == false) {
-                res[i] = t;
-            }
+        uint resIndex = 0;
+
+    for (uint i = 0; i < total; i++) {
+        string memory id = tracker[msg.sender].transactions[i];
+        Transaction memory t = transactions[msg.sender][id];
+        if (t.is_deleted == false) {
+            res[resIndex] = t;
+            resIndex++;
         }
-        return res;
+    }
+    return res;
+}
+
     }
 
     function getUserTransactionsLen() public view returns (uint256) {
         return tracker[msg.sender].total - tracker[msg.sender].deleted;
     }
 }
+
+
