@@ -16,7 +16,7 @@ export default function HomePage() {
   const handleScroll = () => {
     if (window.scrollY > 300) {
       setShowButton(true);
-    } else {
+    } else if(window.scrollY===0){
       setShowButton(false);
     }
   };
