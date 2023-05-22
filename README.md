@@ -108,15 +108,19 @@ To run this project, you will need to add the following environment variables to
  <summary><strong>Environment Varaibles </strong></summary>
 
 ```bash
-GOERLI_RPC_URL=<ALCHEMY_URL> # (https://www.alchemy.com/)
+GOERLI_RPC_URL=<ALCHEMY_URL> # (https://www.alchemy.com/ -> create account -> create app -> view key -> copy the HTTP link )
 
-PRIVATE_KEY=<YOUR_ACCOUNT_PRIVATE_KEY> # (https://www.alchemy.com/)
+PRIVATE_KEY=<YOUR_ACCOUNT_PRIVATE_KEY> # ( This can be exported from your wallet like metamask -> hamburger icon -> account details -> export private key )
 
-ETHERSCAN_API_KEY=<YOUR_KEY> # (https://goerli.etherscan.io/)
+ETHERSCAN_API_KEY=<YOUR_KEY> # (https://etherscan.io/register -> create account -> after logging in click on this link ( https://etherscan.io/myapikey ) )
 
-UPDATE_FRONT_END=true # (true: dynamically update ABI and contract address frontend)
+UPDATE_FRONT_END=true # (true: dynamically update ABI and contract address frontend) ( You dont have to do any thing here )
 ```
 </details>
+  
+ Here is an example of how the .env file should look like
+ ![image](https://github.com/Abhijit25Mishra/Decentralized-Expense-Tracker/assets/69361857/c8c78ffd-2cb5-49d2-a815-a817e98c211f)
+
   
 ## :cowboy_hat_face: Contributors
 
