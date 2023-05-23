@@ -7,6 +7,8 @@ function Footer() {
       style={{
         backgroundColor: "rgba(0, 0, 0, 0.70)", //"rgb(232, 232, 232)"
         color: "white",
+        position:"relative",
+        bottom:"-2px"
       }}
     >
       <p>
