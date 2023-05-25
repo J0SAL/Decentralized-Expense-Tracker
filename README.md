@@ -55,7 +55,7 @@
 
 3. ### Performance
 
-- Line Graph for analysing transactions throught the year
+- Line Graph for analysing transactions throughout the year
 - <img src="https://user-images.githubusercontent.com/52382282/211577394-19701031-13af-481d-987f-e1762ada8e1d.png" alt="drawing" width="800" height="400"/>
 
 4. ### Diversification
@@ -105,7 +105,7 @@ yarn hardhat deploy --network localhost
 To run this project, you will need to add the following environment variables to your .env file inside your backend folder.
 
 <details>
- <summary><strong>Environment Varaibles </strong></summary>
+ <summary><strong>Environment Variables </strong></summary>
 
 ```bash
 GOERLI_RPC_URL=<ALCHEMY_URL> # (https://www.alchemy.com/)
