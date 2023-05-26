@@ -2,92 +2,91 @@
 pragma solidity ^0.8.7;
 
 contract ExpenseTracker {
-    enum TransactionType {
-        INCOME,
-        EXPENSE
-    }
     struct Transaction {
-        string id;
-        TransactionType ttype;
+        bytes32 id;
+        uint32 ttype; // 0 for INCOME, 1 for EXPENSE
         string category;
         string description;
         uint256 amount;
         string date;
-        bool is_deleted;
     }
 
     struct Tracker {
-        uint total;
-        uint deleted;
-        string[] transactions;
+        uint256 total;
+        uint256 deleted;
+        bytes32[] transactions;
     }
-    mapping(address => mapping(string => Transaction)) private transactions;
+
+    mapping(address => mapping(bytes32 => Transaction)) private transactions;
     mapping(address => Tracker) private tracker;
-    mapping(string => bool) private all_ids;
 
     function addExpense(
-        string memory _id,
+        bytes32 _id,
         uint256 _amount,
         string memory _description,
         string memory _date,
         string memory _category
     ) public {
-        require(all_ids[_id] == false, "invalid id");
+        require(transactions[msg.sender][_id].amount == 0, "Invalid ID");
+        
         transactions[msg.sender][_id] = Transaction(
             _id,
-            TransactionType.EXPENSE,
+            1, // EXPENSE
             _category,
             _description,
             _amount,
-            _date,
-            false
+            _date
         );
+        
         tracker[msg.sender].total += 1;
         tracker[msg.sender].transactions.push(_id);
-        all_ids[_id] = true;
     }
 
     function addIncome(
-        string memory _id,
+        bytes32 _id,
         uint256 _amount,
         string memory _description,
         string memory _date,
         string memory _category
     ) public {
-        require(all_ids[_id] == false, "invalid id");
+        require(transactions[msg.sender][_id].amount == 0, "Invalid ID");
+        
         transactions[msg.sender][_id] = Transaction(
             _id,
-            TransactionType.INCOME,
+            0, // INCOME
             _category,
             _description,
             _amount,
-            _date,
-            false
+            _date
         );
+        
         tracker[msg.sender].total += 1;
         tracker[msg.sender].transactions.push(_id);
     }
 
-    function deleteTransaction(string memory id) public {
-        require(transactions[msg.sender][id].is_deleted == false, "transaction already deleted");
-        transactions[msg.sender][id].is_deleted = true;
-        tracker[msg.sender].deleted += 1;
+    function deleteTransaction(bytes32 id) public {
+        require(transactions[msg.sender][id].amount > 0, "Transaction does not exist");
+        require(tracker[msg.sender].deleted < tracker[msg.sender].total, "All transactions already deleted");
+        
+        if (transactions[msg.sender][id].amount > 0) {
+            delete transactions[msg.sender][id];
+            tracker[msg.sender].deleted += 1;
+        }
     }
 
     function getUserTransactions() public view returns (Transaction[] memory) {
-        string[] memory ids = tracker[msg.sender].transactions;
-
-        uint total = tracker[msg.sender].total;
-        uint deleted = tracker[msg.sender].deleted;
-        uint n = total - deleted;
-
+        uint256 n = tracker[msg.sender].total - tracker[msg.sender].deleted;
         Transaction[] memory res = new Transaction[](n);
-        for (uint i = 0; i < n; i++) {
-            Transaction memory t = transactions[msg.sender][ids[i]];
-            if (t.is_deleted == false) {
-                res[i] = t;
+        uint256 count = 0;
+        
+        for (uint256 i = 0; i < tracker[msg.sender].transactions.length; ++i) {
+            bytes32 id = tracker[msg.sender].transactions[i];
+            if (transactions[msg.sender][id].amount > 0) {
+                res[count] = transactions[msg.sender][id];
+                count += 1;
             }
         }
+        
         return res;
     }
 
