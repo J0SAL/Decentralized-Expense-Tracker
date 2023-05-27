@@ -2,7 +2,6 @@
 import { saveAs } from "file-saver";
 import {Document, Page, pdf, Text, View, StyleSheet, Image, Font} from "@react-pdf/renderer"
 import { Transaction } from "../components/transactions/TransactionList";
-import { demo_transactions } from "./demo_data";
 export async function exportPdf(data: Transaction[]) {
     const blob = await pdf(<StatementPDF data={data}/>).toBlob()
     saveAs(blob, "Expense_Tracker_Statment.pdf")
