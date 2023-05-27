@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { exportExcel } from "../../utils/exportExcel";
+import { exportPdf } from "../../utils/exportPdf";
 import { Transaction } from "./TransactionList";
 import { BsDownload } from "react-icons/bs";
 
@@ -9,13 +10,26 @@ function DownloadTransactions({
 }: {
   transactions: Transaction[];
 }) {
-  const handleClick = () => {
-    exportExcel(transactions);
+  const handleClick = (e: any) => {
+    switch (e.target.name) {
+      case "excel":
+        exportExcel(transactions);
+        break;
+      case "pdf":
+        exportPdf(transactions);
+        break;
+    }
   };
+
+
   return (
-    <Button onClick={handleClick} className="btn-sm btn-primary">
-      Download <BsDownload />
-    </Button>
+    <Dropdown drop="end">
+      <Dropdown.Toggle><BsDownload/> Download</Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item name="excel" onClick={handleClick}>Excel</Dropdown.Item>
+        <Dropdown.Item name="pdf" onClick={handleClick}>Pdf</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 }
 
