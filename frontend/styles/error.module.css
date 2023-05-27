@@ -1,0 +1,19 @@
+.imageBox{
+    display: flex;
+    justify-content: center;
+    margin-top:5%;
+    padding: 5%;
+    width:100%;
+    height: 50%;
+    /* margin: auto; */
+}
+.image{
+    height:40%;
+    width:30%;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+    margin-bottom: 10%;
+}
