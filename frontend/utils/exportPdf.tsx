@@ -11,7 +11,6 @@ export async function exportPdf(data: Transaction[]) {
 const StatementPDF = ({data}:{data: Transaction[]}) => {
   const currency: string = "RS";
   let expense: number = 0, income: number = 0;
-  data = [...data, ...demo_transactions];
   return (
     <Document>
       <Page style={styles.body}>
