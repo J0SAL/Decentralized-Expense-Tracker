@@ -13,6 +13,9 @@ function Footer() {
         {" "}
         Leave a ⭐ on{" "}
         <a
+          style={{
+            color: "deeppink",
+          }}
           href="https://github.com/J0SAL/Decentralized-Expense-Tracker"
           target="_blank"
           rel="noreferrer"
@@ -20,9 +23,17 @@ function Footer() {
           Github
         </a>
         <span className="px-2">, made by</span>
-        <a href="https://bio.link/j0sal" target="_blank" rel="noreferrer">
+        <a
+          style={{
+            color: "deeppink",
+          }}
+          href="https://bio.link/j0sal"
+          target="_blank"
+          rel="noreferrer"
+        >
           @Joy Almeida
         </a>{" "}
+        <span> | 2023 All rights reserved.</span>
       </p>
     </div>
   );

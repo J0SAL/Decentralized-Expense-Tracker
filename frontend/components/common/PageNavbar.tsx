@@ -5,17 +5,28 @@ import { ConnectButton } from "web3uikit";
 function PageNavbar() {
   return (
     <>
-      <Navbar bg="light" variant="light" fixed="top">
-        <Container className="d-flex justify-content-around">
+      <Navbar
+        style={{
+          backgroundColor: "deeppink",
+        }}
+        variant="light"
+        fixed="top"
+      >
+        <Container className="d-flex justify-content-between">
           <Navbar.Brand href="#home">
             <img
               alt=""
               src="/logo.png"
-              width="30"
-              height="30"
-              className={`d-inline-block align-top ${style.rotate}`}
-            />{" "}
-            Expense Tracker
+              width="40"
+              height="40"
+              className={`d-inline-block align-center ${style.rotate}`}
+            />
+            <span
+              style={{
+                marginLeft: "10px",
+              }}
+            ></span>
+            {"  "} Jarvis Expense Tracker
           </Navbar.Brand>
           <ConnectButton moralisAuth={false} />
         </Container>
