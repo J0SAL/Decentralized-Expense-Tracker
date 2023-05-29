@@ -41,7 +41,7 @@ function InputForm() {
 
   useEffect(() => {
     if (formData.date == "") return;
-    let today = new Date();
+    let today = new Date(formatDate(new Date()));
     let inputDate = new Date(formData.date);
     if (inputDate > today) {
       setDateError("Date Cannot be after current day");
