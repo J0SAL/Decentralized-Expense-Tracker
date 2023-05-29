@@ -25,6 +25,7 @@ contract ExpenseTracker {
     mapping(address => Tracker) private tracker;
     mapping(string => bool) private all_ids;
 
+    event addexpense(string id,uint amount,string description,string category,string date);
     function addExpense(
         string memory _id,
         uint256 _amount,
@@ -45,8 +46,10 @@ contract ExpenseTracker {
         tracker[msg.sender].total += 1;
         tracker[msg.sender].transactions.push(_id);
         all_ids[_id] = true;
+        emit addexpense(_id,_amount, _description, _category, _date);
     }
 
+    event addincome(string id,uint amount,string description,string category,string date);
     function addIncome(
         string memory _id,
         uint256 _amount,
@@ -66,12 +69,15 @@ contract ExpenseTracker {
         );
         tracker[msg.sender].total += 1;
         tracker[msg.sender].transactions.push(_id);
+        emit addincome(_id, _amount, _description, _category, _date);
     }
 
+    event deletetransaction(string id);
     function deleteTransaction(string memory id) public {
         require(transactions[msg.sender][id].is_deleted == false, "transaction already deleted");
         transactions[msg.sender][id].is_deleted = true;
         tracker[msg.sender].deleted += 1;
+        emit deletetransaction(id);
     }
 
     function getUserTransactions() public view returns (Transaction[] memory) {
