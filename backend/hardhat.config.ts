@@ -10,6 +10,7 @@ import "hardhat-deploy";
 const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -25,6 +26,12 @@ module.exports = {
           accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
           saveDeployments: true,
           chainId: 5,
+      },
+      sepolia: {
+        url: SEPOLIA_RPC_URL,
+        accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+        saveDeployments: true,
+        chainId: 11155111,
       },
     },
 
