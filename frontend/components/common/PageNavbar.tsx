@@ -7,7 +7,7 @@ function PageNavbar() {
     <>
       <Navbar bg="light" variant="light" fixed="top">
         <Container className="d-flex justify-content-around">
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/#home">
             <img
               alt=""
               src="/logo.png"
