@@ -5,14 +5,15 @@ import classes from "../styles/error.module.css";
 
 const hello = () => {
   return (
-    <>
-      <div className={classes.imageBox}>
+  <>
         <img
           className={classes.image}
           src="/images/errorImg.png"
           alt="timer"
+          width={"100vh"}
+          height={"100vh"}
         />
-      </div>
+
       <div className={classes.button}>
       <Link href="/">
         <Button variant="primary">Home</Button>{" "}
