@@ -6,7 +6,7 @@ contract ExpenseTracker {
         INCOME,
         EXPENSE
     }
-    
+
     struct Transaction {
         uint256 id;
         TransactionType ttype;
@@ -20,10 +20,9 @@ contract ExpenseTracker {
     struct Tracker {
         uint256 total;
         uint256 deleted;
-        uint256 counter;
         mapping(uint256 => string) transactions;
     }
-
+    mapping(address => mapping(string => Transaction)) private transactions;
     mapping(address => Tracker) private tracker;
     mapping(string => bool) private all_ids;
 
@@ -35,9 +34,10 @@ contract ExpenseTracker {
     ) public {
         require(bytes(_category).length > 0, "category is required");
         require(bytes(_date).length > 0, "date is required");
+        require(isValidDateFormat(_date), "invalid date format");
+        require(isValidDate(_date), "invalid date");
 
-        uint256 id = tracker[msg.sender].counter;
-        tracker[msg.sender].counter += 1;
+        uint256 id = tracker[msg.sender].total;
 
         Transaction memory expense = Transaction(
             id,
@@ -48,7 +48,7 @@ contract ExpenseTracker {
             _date,
             false
         );
-        
+
         tracker[msg.sender].transactions[id] = _getTransactionId(id);
         all_ids[_getTransactionId(id)] = true;
 
@@ -63,9 +63,10 @@ contract ExpenseTracker {
     ) public {
         require(bytes(_category).length > 0, "category is required");
         require(bytes(_date).length > 0, "date is required");
+        require(isValidDateFormat(_date), "invalid date format");
+        require(isValidDate(_date), "invalid date");
 
-        uint256 id = tracker[msg.sender].counter;
-        tracker[msg.sender].counter += 1;
+        uint256 id = tracker[msg.sender].total;
 
         Transaction memory income = Transaction(
             id,
@@ -76,7 +77,7 @@ contract ExpenseTracker {
             _date,
             false
         );
-        
+
         tracker[msg.sender].transactions[id] = _getTransactionId(id);
         all_ids[_getTransactionId(id)] = true;
 
@@ -84,7 +85,7 @@ contract ExpenseTracker {
     }
 
     function deleteTransaction(uint256 id) public {
-        require(tracker[msg.sender].transactions[id] != "", "transaction not found");
+        require(bytes(tracker[msg.sender].transactions[id]).length > 0, "transaction not found");
         require(!transactions[msg.sender][id].is_deleted, "transaction already deleted");
 
         transactions[msg.sender][id].is_deleted = true;
@@ -98,7 +99,7 @@ contract ExpenseTracker {
 
         Transaction[] memory res = new Transaction[](n);
         uint256 count = 0;
-        for (uint256 i = 0; i < tracker[msg.sender].counter; i++) {
+        for (uint256 i = 0; i < tracker[msg.sender].total; i++) {
             if (bytes(tracker[msg.sender].transactions[i]).length > 0 && !transactions[msg.sender][i].is_deleted) {
                 res[count] = transactions[msg.sender][i];
                 count++;
@@ -110,7 +111,7 @@ contract ExpenseTracker {
     function getUserTransactionsLen() public view returns (uint256) {
         return tracker[msg.sender].total - tracker[msg.sender].deleted;
     }
-    
+
     function _getTransactionId(uint256 id) private pure returns (string memory) {
         return string(abi.encodePacked("TX-", uintToString(id)));
     }
@@ -132,5 +133,90 @@ contract ExpenseTracker {
             value /= 10;
         }
         return string(buffer);
+    }
+
+    function isValidDateFormat(string memory _date) private pure returns (bool) {
+        bytes memory dateBytes = bytes(_date);
+        if (dateBytes.length != 10) {
+            return false;
+        }
+        if (dateBytes[4] != "-" || dateBytes[7] != "-") {
+            return false;
+        }
+        for (uint256 i = 0; i < dateBytes.length; i++) {
+            if (i == 4 || i == 7) {
+                continue;
+            }
+            if (dateBytes[i] < 48 || dateBytes[i] > 57) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isValidDate(string memory _date) private view returns (bool) {
+        uint256 year = parseYear(_date);
+        uint256 month = parseMonth(_date);
+        uint256 day = parseDay(_date);
+        return isDateValid(year, month, day);
+    }
+
+    function parseYear(string memory _date) private pure returns (uint256) {
+        bytes memory dateBytes = bytes(_date);
+        uint256 year = uint256(
+            dateBytes[0]) * 1000 +
+            uint256(dateBytes[1]) * 100 +
+            uint256(dateBytes[2]) * 10 +
+            uint256(dateBytes[3]) -
+            5328;
+        return year;
+    }
+
+    function parseMonth(string memory _date) private pure returns (uint256) {
+        bytes memory dateBytes = bytes(_date);
+        uint256 month = uint256(dateBytes[5]) * 10 + uint256(dateBytes[6]) - 528;
+        return month;
+    }
+
+    function parseDay(string memory _date) private pure returns (uint256) {
+        bytes memory dateBytes = bytes(_date);
+        uint256 day = uint256(dateBytes[8]) * 10 + uint256(dateBytes[9]) - 528;
+        return day;
+    }
+
+    function isDateValid(uint256 year, uint256 month, uint256 day) private view returns (bool) {
+        if (year < 1970 || year > 2105) {
+            return false;
+        }
+        if (month < 1 || month > 12) {
+            return false;
+        }
+        if (day < 1 || day > daysInMonth(year, month)) {
+            return false;
+        }
+        return true;
+    }
+
+    function daysInMonth(uint256 year, uint256 month) private pure returns (uint256) {
+        if (month == 2) {
+            return isLeapYear(year) ? 29 : 28;
+        }
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            return 30;
+        }
+        return 31;
+    }
+
+    function isLeapYear(uint256 year) private pure returns (bool) {
+        if (year % 4 != 0) {
+            return false;
+        }
+        if (year % 100 != 0) {
+            return true;
+        }
+        if (year % 400 == 0) {
+            return true;
+        }
+        return false;
     }
 }
