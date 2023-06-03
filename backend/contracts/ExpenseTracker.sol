@@ -24,8 +24,10 @@ contract ExpenseTracker {
     mapping(address => mapping(string => Transaction)) private transactions;
     mapping(address => Tracker) private tracker;
     mapping(string => bool) private all_ids;
-
+   
     event addexpense(string id,uint amount,string description,string category,string date);
+    event addincome(string id,uint amount,string description,string category,string date);
+    event deletetransaction(string id);
     function addExpense(
         string memory _id,
         uint256 _amount,
@@ -49,7 +51,7 @@ contract ExpenseTracker {
         emit addexpense(_id,_amount, _description, _category, _date);
     }
 
-    event addincome(string id,uint amount,string description,string category,string date);
+    
     function addIncome(
         string memory _id,
         uint256 _amount,
@@ -72,7 +74,7 @@ contract ExpenseTracker {
         emit addincome(_id, _amount, _description, _category, _date);
     }
 
-    event deletetransaction(string id);
+   
     function deleteTransaction(string memory id) public {
         require(transactions[msg.sender][id].is_deleted == false, "transaction already deleted");
         transactions[msg.sender][id].is_deleted = true;
