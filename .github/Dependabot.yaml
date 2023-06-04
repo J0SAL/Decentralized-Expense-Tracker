@@ -1,0 +1,35 @@
+# .github/dependabot.yml
+
+# Version of the Dependabot configuration syntax
+version: 2
+
+# Update packages in all package managers
+updates:
+  # Enable automatic updates for npm packages
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  # Enable automatic updates for Docker images
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+# Options for how Dependabot should behave
+options:
+  # Whether to open pull requests immediately or not
+  # Set to "false" to allow Dependabot to only create issue reports
+  open-pull-requests: true
+
+  # The strategy to use for version updates (e.g., "increase" or "widen")
+  version: "increase"
+
+  # Whether to automatically update the lockfile if required by the package manager
+  # Set to "false" to prevent automatic lockfile updates
+  update-lockfile: true
+
+  # Whether to include security vulnerability updates
+  # Set to "true" to include security updates in Dependabot alerts
+  security-updates: true
