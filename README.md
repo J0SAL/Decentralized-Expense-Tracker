@@ -91,7 +91,9 @@ $ git clone https://github.com/J0SAL/Decentralized-Expense-Tracker
 $ cd Decentralized-Expense-Tracker
 $ cd backend
 # Install dependencies
-yarn
+npm install --global yarn
+# Install hardhat
+npm install -g hardhat
 # Code Compile
 yarn hardhat compile
 # testing (optional)
