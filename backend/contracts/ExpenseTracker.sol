@@ -20,9 +20,9 @@ contract ExpenseTracker {
     struct Tracker {
         uint256 total;
         uint256 deleted;
-        mapping(uint256 => string) transactions;
+        mapping(uint256 => Transaction) transactions;
     }
-    mapping(address => mapping(string => Transaction)) private transactions;
+
     mapping(address => Tracker) private tracker;
     mapping(string => bool) private all_ids;
 
@@ -49,7 +49,7 @@ contract ExpenseTracker {
             false
         );
 
-        tracker[msg.sender].transactions[id] = _getTransactionId(id);
+        tracker[msg.sender].transactions[id] = expense;
         all_ids[_getTransactionId(id)] = true;
 
         tracker[msg.sender].total += 1;
@@ -78,30 +78,30 @@ contract ExpenseTracker {
             false
         );
 
-        tracker[msg.sender].transactions[id] = _getTransactionId(id);
+        tracker[msg.sender].transactions[id] = income;
         all_ids[_getTransactionId(id)] = true;
 
         tracker[msg.sender].total += 1;
     }
 
     function deleteTransaction(uint256 id) public {
-        require(bytes(tracker[msg.sender].transactions[id]).length > 0, "transaction not found");
-        require(!transactions[msg.sender][id].is_deleted, "transaction already deleted");
+        require(bytes(_getTransactionId(id)).length > 0, "transaction not found");
+        require(!tracker[msg.sender].transactions[id].is_deleted, "transaction already deleted");
 
-        transactions[msg.sender][id].is_deleted = true;
+        tracker[msg.sender].transactions[id].is_deleted = true;
         tracker[msg.sender].deleted += 1;
     }
 
-    function getUserTransactions() public view returns (Transaction[] memory) {
+    function getUserTransactions() public view returns (string[] memory) {
         uint256 total = tracker[msg.sender].total;
         uint256 deleted = tracker[msg.sender].deleted;
         uint256 n = total - deleted;
 
-        Transaction[] memory res = new Transaction[](n);
+        string[] memory res = new string[](n);
         uint256 count = 0;
-        for (uint256 i = 0; i < tracker[msg.sender].total; i++) {
-            if (bytes(tracker[msg.sender].transactions[i]).length > 0 && !transactions[msg.sender][i].is_deleted) {
-                res[count] = transactions[msg.sender][i];
+        for (uint256 i = 0; i < total; i++) {
+            if (!tracker[msg.sender].transactions[i].is_deleted) {
+                res[count] = _getTransactionId(i);
                 count++;
             }
         }
@@ -163,28 +163,26 @@ contract ExpenseTracker {
 
     function parseYear(string memory _date) private pure returns (uint256) {
         bytes memory dateBytes = bytes(_date);
-        uint256 year = uint256(
-            dateBytes[0]) * 1000 +
-            uint256(dateBytes[1]) * 100 +
-            uint256(dateBytes[2]) * 10 +
-            uint256(dateBytes[3]) -
-            5328;
+        uint256 year = (uint256(dateBytes[0]) - 48) * 1000 +
+            (uint256(dateBytes[1]) - 48) * 100 +
+            (uint256(dateBytes[2]) - 48) * 10 +
+            (uint256(dateBytes[3]) - 48);
         return year;
     }
 
     function parseMonth(string memory _date) private pure returns (uint256) {
         bytes memory dateBytes = bytes(_date);
-        uint256 month = uint256(dateBytes[5]) * 10 + uint256(dateBytes[6]) - 528;
+        uint256 month = (uint256(dateBytes[5]) - 48) * 10 + (uint256(dateBytes[6]) - 48);
         return month;
     }
 
     function parseDay(string memory _date) private pure returns (uint256) {
         bytes memory dateBytes = bytes(_date);
-        uint256 day = uint256(dateBytes[8]) * 10 + uint256(dateBytes[9]) - 528;
+        uint256 day = (uint256(dateBytes[8]) - 48) * 10 + (uint256(dateBytes[9]) - 48);
         return day;
     }
 
-    function isDateValid(uint256 year, uint256 month, uint256 day) private view returns (bool) {
+    function isDateValid(uint256 year, uint256 month, uint256 day) private pure returns (bool) {
         if (year < 1970 || year > 2105) {
             return false;
         }
@@ -208,13 +206,13 @@ contract ExpenseTracker {
     }
 
     function isLeapYear(uint256 year) private pure returns (bool) {
-        if (year % 4 != 0) {
-            return false;
-        }
-        if (year % 100 != 0) {
+        if (year % 400 == 0) {
             return true;
         }
-        if (year % 400 == 0) {
+        if (year % 100 == 0) {
+            return false;
+        }
+        if (year % 4 == 0) {
             return true;
         }
         return false;
