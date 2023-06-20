@@ -1,10 +1,4 @@
-<!-- Pull Request Template -->
-
-## Related Issue
-
 Resolves #issue_number
-
-<!-- If there is no issue number, the PR will not be merged. Therefore, please ensure that the issue number is added -->
 
 ## Description
 
