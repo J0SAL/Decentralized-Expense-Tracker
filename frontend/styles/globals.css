@@ -38,3 +38,50 @@ a {
 @media only screen and (max-width: 600px) {
 
 }
+
+.form{
+  background: #e0e0e0;
+  box-shadow:  10px 10px 20px #989898,
+  -10px -10px 20px #ffffff;
+  border-radius: 14px;
+  border: 0px !important;
+}
+
+.input{
+  background-color: #ecf0f3;
+  transition: 0.25s ease;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+  border:none !important;
+}
+
+.input::placeholder {
+  color: #989898;
+  transition: all 0.3s ease;
+}
+
+.form__input:focus {
+  box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+}
+
+.header{
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 2.5;
+  color: #181818;
+}
+
+.button{
+  width: 180px;
+  height: 50px;
+  border-radius: 100px !important;
+  
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.15px;
+  background-color: #4B70E2;
+  color: #f9f9f9;
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;
+  border: none;
+  outline: none;
+}

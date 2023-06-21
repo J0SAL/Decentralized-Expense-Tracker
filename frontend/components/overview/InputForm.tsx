@@ -139,8 +139,8 @@ function InputForm() {
     color: string;
   }[] = formData.type === "income" ? incomeCategories : expenseCategories;
   return (
-    <Card>
-      <Card.Header as="h5" className="d-flex justify-content-center">
+    <Card className="form">
+      <Card.Header as="h5" className="header d-flex justify-content-center">
         Add Transaction
       </Card.Header>
       <Card.Body>
@@ -156,6 +156,7 @@ function InputForm() {
                 onChange={handleChange}
                 disabled={loading}
                 value={formData.type}
+                className="input"
               >
                 <option value="default" disabled>
                   Select Transaction Type
@@ -165,7 +166,7 @@ function InputForm() {
               </Form.Select>
             </Col>
             <Col>
-              <Form.Label htmlFor="transaction-cat">
+              <Form.Label htmlFor="transaction-cat" >
                 Category{" "}
                 {formData.type !== "" &&
                   formData.type !== "default" &&
@@ -178,6 +179,7 @@ function InputForm() {
                 onChange={handleChange}
                 disabled={loading}
                 value={formData.category}
+                className="input"
               >
                 <option value="default" disabled>
                   Select Category
@@ -197,13 +199,14 @@ function InputForm() {
           <Form.Label htmlFor="transaction-amount">
             Amount<span className="text-danger">*</span>
           </Form.Label>
-          <InputGroup className="mb-3">
-            <InputGroup.Text>₹</InputGroup.Text>
+          <InputGroup className="mb-3 input">
+            <InputGroup.Text className="input">₹</InputGroup.Text>
             <Form.Control
               id="transaction-amount"
               placeholder="Enter Amount"
               type="number"
               name="amount"
+              className="input"
               onChange={handleChange}
               disabled={loading}
               value={formData.amount}
@@ -214,7 +217,7 @@ function InputForm() {
           <Form.Label htmlFor="transaction-date">
             Date<span className="text-danger">*</span>
             {dateError != "" ? (
-              <i className="text-danger font-italic">{dateError}</i>
+              <i className="text-danger font-italic input">{dateError}</i>
             ) : (
               ""
             )}
@@ -227,6 +230,7 @@ function InputForm() {
               id="transaction-date"
               type="date"
               name="date"
+              className="input"
               onChange={handleChange}
               disabled={loading}
               value={formData.date}
@@ -242,6 +246,7 @@ function InputForm() {
               id="description"
               as="textarea"
               name="description"
+              className="input"
               onChange={handleChange}
               placeholder="Enter Description"
               style={{ height: "80px" }}
@@ -252,7 +257,7 @@ function InputForm() {
             />
           </FloatingLabel>
           <div className="d-flex flex-row justify-content-evenly">
-            <Button variant="primary" type="submit" disabled={!canSubmit}>
+            <Button className="button" variant="primary" type="submit" disabled={!canSubmit}>
               {!loading ? (
                 `Add ${formData.type !== "default" ? formData.type : ""}`
               ) : (
