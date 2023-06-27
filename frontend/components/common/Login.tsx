@@ -23,6 +23,13 @@ function Login() {
           height={"100vh"}
         />
         <ConnectButton moralisAuth={false} />
+
+        <h1 style={{ fontSize: "15px", width: "60%", marginTop: "60px" }}>
+          Please note that this application is currently operating on the Goerli
+          ETH testnet network. While support for additional chains is in
+          development, it is not available at the moment. Please switch your
+          network to Goerli for optimal functionality.
+        </h1>
       </div>
     </div>
   );
