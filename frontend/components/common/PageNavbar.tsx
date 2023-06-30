@@ -6,8 +6,8 @@ function PageNavbar() {
   return (
     <>
       <Navbar bg="light" variant="light" fixed="top">
-        <Container className="d-flex justify-content-around">
-          <Navbar.Brand href="#home">
+        <Container className="d-flex justify-content-around media">
+          <Navbar.Brand href="#home" style={{fontSize: 16 , position:"relative" , left: 36 , fontWeight:600}}>
             <img
               alt=""
               src="/logo.png"
