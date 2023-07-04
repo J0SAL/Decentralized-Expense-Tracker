@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import Overview from "../components/overview/Overview";
-import PerformanceGraph from "../components/performance/PerformanceGraph";
-import Performers from "../components/top-performers/Performers";
-import Transactions from "../components/transactions/Transactions";
 import { useMoralis } from "react-moralis";
 import Login from "../components/common/Login";
 import dataContext from "../context/DataContext/dataContext";
+import { lazy, Suspense } from "react";
 
+const Overview = lazy(() => import("../components/overview/Overview"));
+const Transactions = lazy(() => import("../components/transactions/Transactions"));
+const PerformanceGraph = lazy(() => import("../components/performance/PerformanceGraph"));
+const Performers = lazy(() => import("../components/top-performers/Performers"));
 export default function HomePage() {
   const [showButton, setShowButton] = useState(false);
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
@@ -40,6 +41,7 @@ export default function HomePage() {
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
       <Container className="mt-5 py-3 bg-white">
+      <Suspense fallback={<div>Loading...</div>}>
         <Overview />
         {transactions.length > 0 && (
           <div>
@@ -48,6 +50,7 @@ export default function HomePage() {
             <Performers />
           </div>
         )}
+       </Suspense>
       </Container>
       <button
         className="btn"
