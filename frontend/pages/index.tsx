@@ -4,6 +4,7 @@ import { useMoralis } from "react-moralis";
 import Login from "../components/common/Login";
 import dataContext from "../context/DataContext/dataContext";
 import { lazy, Suspense } from "react";
+import Loading from "../components/loadingAnimation";
 
 const Overview = lazy(() => import("../components/overview/Overview"));
 const Transactions = lazy(() => import("../components/transactions/Transactions"));
@@ -40,6 +41,7 @@ export default function HomePage() {
   if (!isWeb3Enabled) return <Login />;
   return (
     <div style={{ backgroundColor: "rgba(232, 249, 252, 0.76)" }}>
+      <Loading/>
       <Container className="mt-5 py-3 bg-white">
       <Suspense fallback={<div>Loading...</div>}>
         <Overview />
@@ -50,7 +52,7 @@ export default function HomePage() {
             <Performers />
           </div>
         )}
-       </Suspense>
+      </Suspense>
       </Container>
       <button
         className="btn"
