@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <br>
-<b>Jarvis</b> is A web application backed by the power of <b>Decentralization!</b> The motive of the application is to assist the user in managing and maintaining his/her transactions. A transaction can be either in form of income or expense. This application provides visualizations in form of graphs giving users the ability to track by visualizing his/her expenses over a period of time. The application provides the functionality to export the transactions in an excel file. The user can also add transactions through voice commands with a simple click of a button. In addition all data that the user generates is stored on the blockchain in a decentralized manner powered by Ethereum, which prevents the risks of illegal tampering with the data.
+<b>Jarvis</b> is A web application backed by the power of <b>Decentralization!</b> The motive of the application is to assist the user in managing and maintaining his/her transactions. A transaction can be either in the form of income or expense. This application provides visualizations in the form of graphs giving users the ability to track by visualizing his/her expenses over a period of time. The application provides the functionality to export transactions in an Excel file. The user can also add transactions through voice commands with a simple click of a button. In addition, all data that the user generates is stored on the blockchain in a decentralized manner powered by Ethereum, which prevents the risks of illegal tampering with the data.
 <br>
 
 ## :snowflake: Features:
@@ -55,7 +55,7 @@
 
 3. ### Performance
 
-- Line Graph for analysing transactions throught the year
+- Line Graph for analyzing transactions throughout the year
 - <img src="https://user-images.githubusercontent.com/52382282/211577394-19701031-13af-481d-987f-e1762ada8e1d.png" alt="drawing" width="800" height="400"/>
 
 4. ### Diversification
@@ -102,10 +102,10 @@ yarn hardhat node
 yarn hardhat deploy --network localhost
 ```
 
-To run this project, you will need to add the following environment variables to your .env file inside your backend folder.
+To run this project, you must add the following environment variables to your .env file inside your backend folder.
 
 <details>
- <summary><strong>Environment Varaibles </strong></summary>
+ <summary><strong>Environment Variables </strong></summary>
 
 ```bash
 GOERLI_RPC_URL=<ALCHEMY_URL> # (https://www.alchemy.com/)
