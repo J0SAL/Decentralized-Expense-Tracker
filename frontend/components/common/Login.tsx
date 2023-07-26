@@ -8,10 +8,7 @@ function Login() {
         style={{
           minHeight: "90vh",
           display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          textAlign: "center",
-          alignContent: "center",
+          justifyContent: "center",     
           alignItems: "center",
           gap: "20px",
         }}
@@ -19,10 +16,16 @@ function Login() {
         <img
           src="/images/welcome.svg"
           alt="no data"
-          width={"100vh"}
-          height={"100vh"}
+          width={"300vh"}
+          height={"300vh"}
         />
-        <ConnectButton moralisAuth={false} />
+        <div 
+        style={{display:'flex',
+         flexDirection:'column', 
+         alignItems:'center'}}>
+          <h2 style={{ fontWeight: 'bold' }}>Welcome to Jarvis</h2>
+          <ConnectButton moralisAuth={false}/>
+        </div>
       </div>
     </div>
   );
