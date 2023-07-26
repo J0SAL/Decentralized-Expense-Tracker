@@ -1,8 +1,25 @@
-import React from "react";
+import React , {useState, useEffect}from "react";
 import { ConnectButton } from "web3uikit";
 
 function Login() {
-  const isSmallScreen = window.innerWidth <= 600;
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 600);
+    };
+
+    // Add event listener to track window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial check for small screen
+    handleResize();
+
+    // Clean up the event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   return (
     <div>
       <div
