@@ -2,6 +2,7 @@ import React from "react";
 import { ConnectButton } from "web3uikit";
 
 function Login() {
+  const isSmallScreen = window.innerWidth <= 600;
   return (
     <div>
       <div
@@ -11,6 +12,7 @@ function Login() {
           justifyContent: "center",     
           alignItems: "center",
           gap: "20px",
+          flexDirection: isSmallScreen ? "column" : "row", 
         }}
       >
         <img
