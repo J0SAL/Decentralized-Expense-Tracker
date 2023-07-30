@@ -8,14 +8,29 @@
 }
 
 .rotate {
-    animation: rotation 3s infinite linear;
+  animation: rotation 3s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
   }
 
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(359deg);
-    }
+  to {
+    transform: rotate(359deg);
   }
+}
+
+.wlcimg {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px
+}
+
+@media only screen and (max-width: 600px) {
+  .wlcimg {
+    flex-direction: column;
+  }
+}
