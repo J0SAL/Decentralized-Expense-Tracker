@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ConnectButton } from "web3uikit";
+import style from "../../styles/Main.module.css";
 
 function Login() {
   return (
     <div>
-      <div
-        style={{
-          minHeight: "90vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "20px"
-        }}
+      <div  
+      className={` ${style.wlcimg}`}
       >
-        <style>
-          {`
-          @media (max-width: 600px) {
-            div {
-              flex-direction: column;
-            }
-          `}
-        </style>
         <img
           src="/images/welcome.svg"
           alt="no data"
